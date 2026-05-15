@@ -30,19 +30,37 @@ class UserAdapter(
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = userList[position]
         holder.binding.tvUserName.text = user.fullName
+        holder.binding.tvUserInitial.text = user.fullName?.take(1)?.uppercase() ?: "U"
         
+        // Group logic (dummy check for community items)
+        if (user.fullName?.contains("Community") == true) {
+            holder.binding.tvUserInitial.visibility = View.GONE
+            holder.binding.ivGroupIcon.visibility = View.VISIBLE
+            holder.binding.cvAvatar.setCardBackgroundColor(holder.itemView.context.getColor(R.color.primaryRedLight)) // or some blue
+        } else {
+            holder.binding.tvUserInitial.visibility = View.VISIBLE
+            holder.binding.ivGroupIcon.visibility = View.GONE
+            holder.binding.cvAvatar.setCardBackgroundColor(0xFFFFEAEA.toInt())
+        }
+
         // Load Base64 Profile Image
         if (!user.profileImageUrl.isNullOrEmpty()) {
             try {
                 val decodedByte = Base64.decode(user.profileImageUrl, Base64.DEFAULT)
                 val bitmap = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.size)
                 holder.binding.ivUserImage.setImageBitmap(bitmap)
+                holder.binding.ivUserImage.visibility = View.VISIBLE
+                holder.binding.tvUserInitial.visibility = View.GONE
+                holder.binding.ivGroupIcon.visibility = View.GONE
             } catch (e: Exception) {
-                holder.binding.ivUserImage.setImageResource(R.drawable.ic_profile_placeholder)
+                holder.binding.ivUserImage.visibility = View.GONE
             }
         } else {
-            holder.binding.ivUserImage.setImageResource(R.drawable.ic_profile_placeholder)
+            holder.binding.ivUserImage.visibility = View.GONE
         }
+
+        // Online status (dummy for now)
+        holder.binding.viewOnlineStatus.visibility = if (position % 2 == 0) View.VISIBLE else View.GONE
 
         val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
         val otherUserId = user.uid
@@ -61,7 +79,7 @@ class UserAdapter(
                             if (msg != null) {
                                 lastMsg = msg.message ?: ""
                                 timestamp = msg.timestamp ?: 0L
-                                if (msg.receiverId == currentUserId && msg.status < 3) {
+                                if (msg.receiverId == currentUserId && (msg.status ?: 1) < 3) {
                                     unreadCount++
                                 }
                             }
@@ -73,8 +91,10 @@ class UserAdapter(
                         if (unreadCount > 0) {
                             holder.binding.tvUnreadCount.text = unreadCount.toString()
                             holder.binding.tvUnreadCount.visibility = View.VISIBLE
+                            holder.binding.tvMessageTime.setTextColor(0xFF22C55E.toInt())
                         } else {
                             holder.binding.tvUnreadCount.visibility = View.GONE
+                            holder.binding.tvMessageTime.setTextColor(0xFF64748B.toInt())
                         }
                     }
                     override fun onCancelled(error: DatabaseError) {}
@@ -85,8 +105,17 @@ class UserAdapter(
     }
 
     private fun formatTime(timestamp: Long): String {
-        val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
-        return sdf.format(Date(timestamp))
+        val date = Date(timestamp)
+        val now = Calendar.getInstance()
+        val msgDate = Calendar.getInstance().apply { time = date }
+        
+        return if (now.get(Calendar.DATE) == msgDate.get(Calendar.DATE)) {
+            SimpleDateFormat("hh:mm a", Locale.getDefault()).format(date)
+        } else if (now.get(Calendar.DATE) - msgDate.get(Calendar.DATE) == 1) {
+            "Yesterday"
+        } else {
+            SimpleDateFormat("dd/MM/yy", Locale.getDefault()).format(date)
+        }
     }
 
     override fun getItemCount(): Int = userList.size

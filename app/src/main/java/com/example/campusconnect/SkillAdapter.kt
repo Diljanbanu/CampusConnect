@@ -1,7 +1,9 @@
 package com.example.campusconnect
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +18,8 @@ class SkillAdapter(
     private val isProfilePage: Boolean = false,
     private val onEditClick: ((Skill) -> Unit)? = null,
     private val onDeleteClick: ((Skill) -> Unit)? = null,
-    private val onViewProfileClick: ((String) -> Unit)? = null
+    private val onViewProfileClick: ((String) -> Unit)? = null,
+    private val onChatClick: ((Skill) -> Unit)? = null
 ) : RecyclerView.Adapter<SkillAdapter.SkillViewHolder>() {
 
     class SkillViewHolder(val binding: ItemSkillBinding) : RecyclerView.ViewHolder(binding.root)
@@ -31,73 +34,89 @@ class SkillAdapter(
         val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
         
         holder.binding.tvSkillName.text = skill.skillName
-        holder.binding.ratingBar.rating = skill.rating
-        holder.binding.tvRating.text = "${skill.rating} (${skill.reviewsCount} Reviews)"
-        holder.binding.tvSkillInitial.text = skill.skillName?.take(1)?.uppercase() ?: "S"
+        holder.binding.tvSkillDescription.text = skill.description ?: "No description provided."
+        holder.binding.tvSkillCategory.text = skill.category ?: "SKILL"
+        holder.binding.tvStudentName.text = skill.studentName ?: "Student"
 
-        // Disable rating for own skills
-        if (skill.studentId == currentUserId || isProfilePage) {
-            holder.binding.ratingBar.setIsIndicator(true)
-        } else {
-            holder.binding.ratingBar.setIsIndicator(false)
-            holder.binding.ratingBar.setOnRatingBarChangeListener { _, rating, fromUser ->
-                if (fromUser) {
-                    saveRatingToFirebase(skill, rating, holder.itemView)
+        // Load Student Image safely
+        skill.studentId?.let { sid ->
+            FirebaseDatabase.getInstance().reference.child("Users").child(sid).child("profileImageUrl").get()
+                .addOnSuccessListener { snapshot ->
+                    val base64Image = snapshot.value?.toString()
+                    if (!base64Image.isNullOrEmpty()) {
+                        try {
+                            val decodedByte = Base64.decode(base64Image, Base64.DEFAULT)
+                            val bitmap = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.size)
+                            holder.binding.ivUserImage.setImageBitmap(bitmap)
+                        } catch (e: Exception) {
+                            holder.binding.ivUserImage.setImageResource(R.drawable.ic_profile_placeholder)
+                        }
+                    } else {
+                        holder.binding.ivUserImage.setImageResource(R.drawable.ic_profile_placeholder)
+                    }
                 }
+        } ?: run {
+            holder.binding.ivUserImage.setImageResource(R.drawable.ic_profile_placeholder)
+        }
+
+        // Chat logic
+        holder.binding.btnChat.setOnClickListener {
+            val sid = skill.studentId
+            if (sid == null) {
+                Toast.makeText(holder.itemView.context, "User ID not found", Toast.LENGTH_SHORT).show()
+            } else if (sid == currentUserId) {
+                Toast.makeText(holder.itemView.context, "You cannot chat with yourself", Toast.LENGTH_SHORT).show()
+            } else {
+                onChatClick?.invoke(skill)
             }
         }
 
-        if (isProfilePage) {
-            holder.binding.tvStudentName.visibility = View.GONE
-            holder.binding.llSkillActions.visibility = View.VISIBLE
-            holder.binding.llPublicActions.visibility = View.GONE
-            
-            holder.binding.btnEditSkill.setOnClickListener { onEditClick?.invoke(skill) }
-            holder.binding.btnDeleteSkill.setOnClickListener { onDeleteClick?.invoke(skill) }
-        } else {
-            holder.binding.tvStudentName.visibility = View.VISIBLE
-            holder.binding.tvStudentName.text = skill.studentName ?: "Unknown"
-            holder.binding.llSkillActions.visibility = View.GONE
-            holder.binding.llPublicActions.visibility = View.VISIBLE
-            
-            // Email Logic
-            holder.binding.btnEmail.setOnClickListener {
-                skill.studentEmail?.let { email ->
-                    val intent = Intent(Intent.ACTION_SENDTO).apply {
-                        data = Uri.parse("mailto:")
-                        putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
-                        putExtra(Intent.EXTRA_SUBJECT, "Query regarding your skill: ${skill.skillName}")
-                    }
-                    try {
-                        holder.itemView.context.startActivity(Intent.createChooser(intent, "Send Email..."))
-                    } catch (e: Exception) {
-                        Toast.makeText(holder.itemView.context, "No email app found", Toast.LENGTH_SHORT).show()
-                    }
-                } ?: run {
-                    Toast.makeText(holder.itemView.context, "Email address not available", Toast.LENGTH_SHORT).show()
-                }
-            }
+        // Email logic
+        holder.binding.btnEmail.setOnClickListener {
+            sendEmail(skill, holder.itemView)
+        }
 
-            holder.binding.btnViewProfile.setOnClickListener {
-                skill.studentId?.let { uid -> onViewProfileClick?.invoke(uid) }
-            }
+        // View Profile logic
+        holder.binding.btnViewProfile.setOnClickListener {
+            skill.studentId?.let { sid ->
+                onViewProfileClick?.invoke(sid)
+            } ?: Toast.makeText(holder.itemView.context, "Profile not available", Toast.LENGTH_SHORT).show()
+        }
+
+        // Logic for profile page (edit/delete)
+        if (isProfilePage) {
+            holder.binding.llActions.visibility = View.GONE
+            holder.binding.btnViewProfile.visibility = View.GONE
         }
     }
 
-    private fun saveRatingToFirebase(skill: Skill, newRating: Float, view: View) {
-        val skillId = skill.id ?: return
-        val database = FirebaseDatabase.getInstance().reference.child("Skills").child(skillId)
-
-        val totalReviews = skill.reviewsCount + 1
-        val updatedRating = ((skill.rating * skill.reviewsCount) + newRating) / totalReviews
-
-        val updates = mapOf(
-            "rating" to updatedRating,
-            "reviewsCount" to totalReviews
-        )
-
-        database.updateChildren(updates).addOnSuccessListener {
-            Toast.makeText(view.context, "Rating Saved: $newRating Stars", Toast.LENGTH_SHORT).show()
+    private fun sendEmail(skill: Skill, view: View) {
+        val sid = skill.studentId ?: return
+        
+        if (!skill.studentEmail.isNullOrEmpty()) {
+            val intent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:${skill.studentEmail}")
+                putExtra(Intent.EXTRA_SUBJECT, "Query regarding your skill: ${skill.skillName}")
+            }
+            try {
+                view.context.startActivity(Intent.createChooser(intent, "Send Email..."))
+            } catch (e: Exception) {
+                Toast.makeText(view.context, "No email app found", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            FirebaseDatabase.getInstance().reference.child("Users").child(sid).child("email").get()
+                .addOnSuccessListener { snapshot ->
+                    val email = snapshot.value?.toString()
+                    if (!email.isNullOrEmpty()) {
+                        val intent = Intent(Intent.ACTION_SENDTO).apply {
+                            data = Uri.parse("mailto:$email")
+                            putExtra(Intent.EXTRA_SUBJECT, "Query regarding your skill: ${skill.skillName}")
+                        }
+                        view.context.startActivity(Intent.createChooser(intent, "Send Email..."))
+                    } else {
+                        Toast.makeText(view.context, "Email address not available", Toast.LENGTH_SHORT).show()
+                    }
+                }
         }
     }
 

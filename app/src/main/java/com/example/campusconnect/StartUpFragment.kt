@@ -2,6 +2,8 @@ package com.example.campusconnect
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.campusconnect.databinding.FragmentStartupBinding
+import com.example.campusconnect.repository.DataRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -23,6 +26,7 @@ class StartUpFragment : Fragment() {
     private lateinit var database: FirebaseDatabase
     private lateinit var startupAdapter: StartupAdapter
     private val startupList = mutableListOf<Startup>()
+    private val fullStartupList = mutableListOf<Startup>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,16 +41,14 @@ class StartUpFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
-        
+
         setupRecyclerView()
-        fetchIdeas()
+        fetchApprovedIdeas()
+        setupSearch()
 
         binding.fabAddIdea.setOnClickListener {
             showAddStartupDialog()
         }
-
-        // NOTE: Bottom Navigation listeners are removed because navigation 
-        // is now handled globally by BottomNavigationView in MainActivity.
     }
 
     private fun setupRecyclerView() {
@@ -55,24 +57,19 @@ class StartUpFragment : Fragment() {
         binding.rvStartups.adapter = startupAdapter
     }
 
-    private fun fetchIdeas() {
-        val userId = auth.currentUser?.uid ?: ""
+    private fun fetchApprovedIdeas() {
         val ideasRef = database.reference.child("Ideas")
-        
         ideasRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (_binding == null) return
-                startupList.clear()
+                fullStartupList.clear()
                 for (ideaSnapshot in snapshot.children) {
-                    val startup = ideaSnapshot.getValue(Startup::class.java)
-                    if (startup != null) {
-                        // User sees their own ideas always, others see only approved
-                        if (startup.studentId == userId || startup.status == "approved") {
-                            startupList.add(startup)
-                        }
+                    val idea = ideaSnapshot.getValue(Startup::class.java)
+                    if (idea != null && idea.status == "approved") {
+                        fullStartupList.add(idea)
                     }
                 }
-                startupAdapter.notifyDataSetChanged()
+                filterStartups(binding.etSearchStartups.text.toString())
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -83,41 +80,72 @@ class StartUpFragment : Fragment() {
         })
     }
 
+    private fun setupSearch() {
+        binding.etSearchStartups.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filterStartups(s.toString())
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun filterStartups(query: String) {
+        val filtered = if (query.isEmpty()) {
+            fullStartupList
+        } else {
+            fullStartupList.filter {
+                it.title?.contains(query, ignoreCase = true) == true ||
+                it.studentName?.contains(query, ignoreCase = true) == true ||
+                it.description?.contains(query, ignoreCase = true) == true
+            }
+        }
+        startupList.clear()
+        startupList.addAll(filtered)
+        startupAdapter.notifyDataSetChanged()
+    }
+
     private fun showAddStartupDialog() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Post New Idea")
-        val layout = LinearLayout(requireContext()).apply {
+        val layout = LinearLayout(requireContext()).apply { 
             orientation = LinearLayout.VERTICAL
             setPadding(50, 40, 50, 10)
         }
         val etTitle = EditText(requireContext()).apply { hint = "Startup Title" }
         val etDesc = EditText(requireContext()).apply { hint = "Description" }
+        
         layout.addView(etTitle)
         layout.addView(etDesc)
+        
         builder.setView(layout)
         builder.setPositiveButton("Submit") { _, _ ->
             val title = etTitle.text.toString().trim()
             val desc = etDesc.text.toString().trim()
             if (title.isNotEmpty()) {
                 val userId = auth.currentUser?.uid ?: return@setPositiveButton
-                
-                // Fetch user name for the startup entry
-                database.reference.child("Users").child(userId).child("fullName").get().addOnSuccessListener { snapshot ->
-                    val userName = snapshot.value?.toString() ?: "Unknown"
-                    val ideaId = database.reference.child("Ideas").push().key ?: return@addOnSuccessListener
-                    val startup = mapOf(
-                        "id" to ideaId,
-                        "title" to title,
-                        "description" to desc,
-                        "studentName" to userName,
-                        "studentId" to userId,
-                        "status" to "pending"
-                    )
-                    database.reference.child("Ideas").child(ideaId).setValue(startup)
-                        .addOnSuccessListener {
-                            Toast.makeText(requireContext(), "Idea submitted!", Toast.LENGTH_SHORT).show()
-                        }
-                }
+                val user = DataRepository.currentUser
+                val ideaId = database.reference.child("Ideas").push().key ?: return@setPositiveButton
+                val startup = Startup(
+                    id = ideaId,
+                    title = title,
+                    description = desc,
+                    studentName = user?.fullName,
+                    studentId = userId,
+                    status = "pending"
+                )
+                database.reference.child("Ideas").child(ideaId).setValue(startup)
+                    .addOnSuccessListener {
+                        Toast.makeText(requireContext(), "Idea submitted for approval", Toast.LENGTH_SHORT).show()
+                        
+                        // Notify Admin or User themselves for confirmation
+                        NotificationHelper.sendNotification(
+                            userId = userId,
+                            title = "Startup Submitted",
+                            body = "Your idea '$title' has been submitted for approval.",
+                            type = "startup"
+                        )
+                    }
             }
         }
         builder.setNegativeButton("Cancel", null)

@@ -3,30 +3,101 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="4dp">
 
     <LinearLayout
         android:id="@+id/llSentMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/bg_sent_message"
+        android:background="@drawable/bg_chat_sent"
+        android:elevation="1dp"
+        android:gravity="end"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="8dp">
+
+        <TextView
+            android:id="@+id/tvForwardedLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:text="Forwarded"
+            android:textColor="#6B7280"
+            android:textSize="10sp"
+            android:textStyle="italic"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tvSentMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="240dp"
-            android:text="Sent Message"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:maxWidth="260dp"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardSentImage"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeColor="#DDDDDD"
+            app:strokeWidth="1dp">
+            <ImageView
+                android:id="@+id/ivSentImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:id="@+id/llFileContainer"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="#1A000000"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/ivFileIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_document" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvFileName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="middle"
+                    android:maxLines="1"
+                    android:text="document.pdf"
+                    android:textColor="#000000"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tvFileSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0 KB"
+                    android:textColor="#6B7280"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
             android:layout_marginTop="2dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -35,16 +106,16 @@
                 android:id="@+id/tvSentTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12:00"
-                android:textColor="#E0E0E0"
+                android:text="12:00 PM"
+                android:textColor="#667777"
                 android:textSize="10sp" />
 
-<!--            <ImageView-->
-<!--                android:id="@+id/ivMessageTicks"-->
-<!--                android:layout_width="14dp"-->
-<!--                android:layout_height="14dp"-->
-<!--                android:layout_marginStart="4dp"-->
-<!--                app:tint="@android:color/white" />-->
+            <ImageView
+                android:id="@+id/ivMessageTicks"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="4dp"
+                android:src="@drawable/ic_double_tick" />
         </LinearLayout>
     </LinearLayout>
 
@@ -55,7 +126,7 @@
         android:layout_below="@id/llSentMessage"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="2dp"
-        android:text="seen just now"
+        android:text="seen"
         android:textColor="#757575"
         android:textSize="10sp"
         android:visibility="gone" />

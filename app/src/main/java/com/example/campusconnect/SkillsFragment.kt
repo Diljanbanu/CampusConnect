@@ -1,16 +1,20 @@
 package com.example.campusconnect
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.campusconnect.databinding.FragmentSkillsBinding
+import com.example.campusconnect.repository.DataRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -39,21 +43,71 @@ class SkillsFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
         
-        // Redirect to login if not authenticated
         if (auth.currentUser == null) {
             findNavController().navigate(R.id.action_skillsFragment_to_loginFragment)
             return
         }
+
+        val user = DataRepository.currentUser
+        binding.tvUserName.text = user?.fullName?.split(" ")?.get(0) ?: "Student"
         
         setupRecyclerView()
         fetchSkills()
         setupSearch()
 
-        // Navigation handled globally by BottomNavigationView in MainActivity
+        binding.btnAddSkill.setOnClickListener {
+            showAddSkillDialog()
+        }
+
+        binding.btnSearch.setOnClickListener {
+            if (binding.cvSearch.visibility == View.VISIBLE) {
+                binding.cvSearch.visibility = View.GONE
+                filterSkills("")
+            } else {
+                binding.cvSearch.visibility = View.VISIBLE
+                binding.etSearchSkills.requestFocus()
+            }
+        }
+
+        binding.btnNotifications.setOnClickListener {
+            findNavController().navigate(R.id.action_skillsFragment_to_notificationsFragment)
+        }
+        
+        updateNotificationBadge()
+    }
+
+    private fun updateNotificationBadge() {
+        val uid = auth.currentUser?.uid ?: return
+        database.reference.child("Notifications").child(uid).orderByChild("isRead").equalTo(false)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (_binding == null) return
+                    val unreadCount = snapshot.childrenCount
+                    binding.viewNotificationBadge.visibility = 
+                        if (unreadCount > 0) View.VISIBLE else View.GONE
+                }
+                override fun onCancelled(error: DatabaseError) {}
+            })
     }
 
     private fun setupRecyclerView() {
-        skillAdapter = SkillAdapter(skillList, isProfilePage = false)
+        skillAdapter = SkillAdapter(
+            skillList, 
+            isProfilePage = false,
+            onChatClick = { skill ->
+                val bundle = Bundle().apply {
+                    putString("receiverId", skill.studentId)
+                    putString("receiverName", skill.studentName)
+                }
+                findNavController().navigate(R.id.action_skillsFragment_to_chatFragment, bundle)
+            },
+            onViewProfileClick = { userId ->
+                val bundle = Bundle().apply {
+                    putString("userId", userId)
+                }
+                findNavController().navigate(R.id.action_skillsFragment_to_publicProfileFragment, bundle)
+            }
+        )
         binding.rvSkills.layoutManager = LinearLayoutManager(requireContext())
         binding.rvSkills.adapter = skillAdapter
     }
@@ -63,16 +117,14 @@ class SkillsFragment : Fragment() {
         skillsRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (_binding == null) return
-                skillList.clear()
                 fullSkillList.clear()
                 for (skillSnapshot in snapshot.children) {
                     val skill = skillSnapshot.getValue(Skill::class.java)
                     if (skill != null && skill.status == "approved") {
-                        skillList.add(skill)
                         fullSkillList.add(skill)
                     }
                 }
-                skillAdapter.notifyDataSetChanged()
+                filterSkills(binding.etSearchSkills.text.toString())
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -96,11 +148,58 @@ class SkillsFragment : Fragment() {
     private fun filterSkills(query: String) {
         val filteredList = fullSkillList.filter { 
             it.skillName?.contains(query, ignoreCase = true) == true ||
-            it.studentName?.contains(query, ignoreCase = true) == true
+            it.studentName?.contains(query, ignoreCase = true) == true ||
+            it.category?.contains(query, ignoreCase = true) == true
         }
         skillList.clear()
         skillList.addAll(filteredList)
         skillAdapter.notifyDataSetChanged()
+    }
+
+    private fun showAddSkillDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Add New Skill")
+        val layout = LinearLayout(requireContext()).apply { 
+            orientation = LinearLayout.VERTICAL
+            setPadding(50, 40, 50, 10)
+        }
+        val inputSkill = EditText(requireContext()).apply { hint = "Skill Name (e.g. Flutter Dev)" }
+        val inputCategory = EditText(requireContext()).apply { hint = "Category (e.g. TECH)" }
+        val inputDesc = EditText(requireContext()).apply { hint = "Description" }
+        
+        layout.addView(inputSkill)
+        layout.addView(inputCategory)
+        layout.addView(inputDesc)
+        
+        builder.setView(layout)
+        builder.setPositiveButton("Add") { _, _ ->
+            val name = inputSkill.text.toString().trim()
+            val category = inputCategory.text.toString().trim().uppercase()
+            val desc = inputDesc.text.toString().trim()
+            
+            if (name.isNotEmpty()) {
+                val userId = auth.currentUser?.uid ?: return@setPositiveButton
+                val user = DataRepository.currentUser
+                val skillId = database.reference.child("Skills").push().key ?: return@setPositiveButton
+                val skill = Skill(
+                    id = skillId,
+                    skillName = name,
+                    studentName = user?.fullName,
+                    studentMobile = user?.mobile,
+                    studentEmail = user?.email,
+                    studentId = userId,
+                    description = desc,
+                    category = category,
+                    status = "approved" // Set to approved directly for now
+                )
+                database.reference.child("Skills").child(skillId).setValue(skill)
+                    .addOnSuccessListener {
+                        Toast.makeText(requireContext(), "Skill added successfully", Toast.LENGTH_SHORT).show()
+                    }
+            }
+        }
+        builder.setNegativeButton("Cancel", null)
+        builder.show()
     }
 
     override fun onDestroyView() {

@@ -9,8 +9,10 @@ data class Startup(
     val studentName: String? = null,
     val studentId: String? = null,
     val description: String? = null,
-    val status: String? = null,
+    val status: String? = "pending", // "pending" or "approved"
     val requiredSkills: String? = null,
+    val teamSize: String? = null,
+    val stage: String? = null,
     val teamMembers: Map<String, TeamMember>? = null
 ) : Serializable
 

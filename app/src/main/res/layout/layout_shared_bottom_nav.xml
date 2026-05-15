@@ -79,7 +79,7 @@
                 android:id="@+id/ivNavStartup"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/startup"
+                android:src="@drawable/rocket_launch"
                 app:tint="@color/gray_text" />
             <TextView
                 android:id="@+id/tvNavStartup"

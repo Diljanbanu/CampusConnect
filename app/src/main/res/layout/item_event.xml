@@ -1,55 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
     app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="16dp"
-    app:strokeWidth="0dp">
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#F3F4F6">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="12dp">
 
+        <!-- Left Image Section -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvBanner"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/ivEventBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_featured_event" />
+                <TextView
+                    android:id="@+id/tvStatusBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/bg_badge_upcoming"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp"
+                    android:text="UPCOMING"
+                    android:textColor="@android:color/white"
+                    android:textSize="8sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Right Content Section -->
         <TextView
             android:id="@+id/tvEventTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Event Title"
-            android:textColor="#FF0000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="AI &amp; ML Workshop"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/ivBookmark"
+            app:layout_constraintStart_toEndOf="@id/cvBanner"
+            app:layout_constraintTop_toTopOf="@id/cvBanner" />
+
+        <ImageView
+            android:id="@+id/ivBookmark"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_bookmark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvEventTitle"
+            app:tint="#94A3B8" />
 
         <TextView
-            android:id="@+id/tvEventDate"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvEventDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Learn basics of AI/ML and build real-world projects."
+            android:textColor="#6B7280"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/llButtons"
+            app:layout_constraintStart_toStartOf="@id/tvEventTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvEventTitle" />
+
+        <LinearLayout
+            android:id="@+id/llDateTime"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Date: ..."
-            android:textColor="#1A1C1E"
-            android:textSize="14sp" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/tvEventTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvEventDesc">
+            <ImageView android:layout_width="12dp" android:layout_height="12dp" android:src="@drawable/event" app:tint="#6B7280" />
+            <TextView android:id="@+id/tvEventDate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="20 May 2024, 10:00 AM" android:textColor="#4B5563" android:textSize="11sp" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvEventLocation"
+        <LinearLayout
+            android:id="@+id/llLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/tvEventTitle"
+            app:layout_constraintTop_toBottomOf="@id/llDateTime">
+            <ImageView android:layout_width="12dp" android:layout_height="12dp" android:src="@drawable/home" app:tint="#6B7280" />
+            <TextView android:id="@+id/tvEventLocation" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="Seminar Hall, RKU" android:textColor="#4B5563" android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- Stats Section -->
+        <LinearLayout
+            android:id="@+id/llStats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Location: ..."
-            android:textColor="#757575"
-            android:textSize="14sp" />
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/tvEventTitle"
+            app:layout_constraintTop_toBottomOf="@id/llLocation">
+            <TextView
+                android:id="@+id/tvSeatsLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_category_item"
+                android:backgroundTint="#F0FDF4"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="120 Seats Left"
+                android:textColor="#16A34A"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical">
+                <ImageView android:layout_width="12dp" android:layout_height="12dp" android:src="@drawable/profile_box" app:tint="#6B7280" />
+                <TextView android:id="@+id/tvRegisteredCount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="178 Registered" android:textColor="#6B7280" android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#FF0000"
-            android:text="Register Now"
-            android:textAllCaps="false"
-            app:cornerRadius="8dp" />
-    </LinearLayout>
+        <!-- Buttons Section -->
+        <LinearLayout
+            android:id="@+id/llButtons"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivBookmark">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAction"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:backgroundTint="#C1272D"
+                android:padding="0dp"
+                android:text="Register"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDetails"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:padding="0dp"
+                android:text="Details"
+                android:textAllCaps="false"
+                android:textColor="#4B5563"
+                android:textSize="13sp"
+                app:cornerRadius="8dp"
+                app:strokeColor="#D1D5DB" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.google.android.material.card.MaterialCardView>

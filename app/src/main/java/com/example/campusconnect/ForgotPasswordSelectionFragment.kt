@@ -34,6 +34,8 @@ class ForgotPasswordSelectionFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
 
+        updateUI()
+
         binding.cardEmail.setOnClickListener {
             selection = "email"
             updateUI()
@@ -44,67 +46,83 @@ class ForgotPasswordSelectionFragment : Fragment() {
             updateUI()
         }
 
-        binding.btnContinue.setOnClickListener {
-            val email = binding.etIdentifierEmail.text.toString().trim()
-            if (email.isEmpty()) {
-                binding.etIdentifierEmail.error = "Enter registered email"
-                return@setOnClickListener
-            }
-
+        binding.btnSendOtp.setOnClickListener {
             if (selection == "email") {
-                sendEmailReset(email)
+                val email = binding.etIdentifierEmail.text.toString().trim()
+                if (email.isEmpty()) {
+                    binding.etIdentifierEmail.error = "Enter registered email"
+                    return@setOnClickListener
+                }
+                verifyAndSendEmailOtp(email)
             } else {
-                fetchPhoneAndStartSmsFlow(email)
+                val phone = binding.etIdentifierPhone.text.toString().trim()
+                if (phone.isEmpty()) {
+                    binding.etIdentifierPhone.error = "Enter registered mobile number"
+                    return@setOnClickListener
+                }
+                verifyAndSendSmsOtp(phone)
             }
         }
     }
 
     private fun updateUI() {
+        val red = resources.getColor(R.color.primaryRed)
+        val lightGray = resources.getColor(R.color.light_gray_bg)
+
         if (selection == "email") {
-            binding.cardEmail.setStrokeColor(resources.getColor(R.color.primaryRed))
+            binding.cardEmail.setStrokeColor(red)
             binding.cardEmail.strokeWidth = 6
-            binding.cardSms.setStrokeColor(resources.getColor(R.color.light_gray_bg))
+            binding.cardSms.setStrokeColor(lightGray)
             binding.cardSms.strokeWidth = 2
+            
+            binding.tilEmail.visibility = View.VISIBLE
+            binding.tilPhone.visibility = View.GONE
+            binding.tvDescription.text = "Enter your registered email to receive a verification OTP"
         } else {
-            binding.cardSms.setStrokeColor(resources.getColor(R.color.primaryRed))
+            binding.cardSms.setStrokeColor(red)
             binding.cardSms.strokeWidth = 6
-            binding.cardEmail.setStrokeColor(resources.getColor(R.color.light_gray_bg))
+            binding.cardEmail.setStrokeColor(lightGray)
             binding.cardEmail.strokeWidth = 2
+            
+            binding.tilPhone.visibility = View.VISIBLE
+            binding.tilEmail.visibility = View.GONE
+            binding.tvDescription.text = "Enter your registered mobile number to receive a verification OTP"
         }
     }
 
-    private fun sendEmailReset(email: String) {
-        auth.sendPasswordResetEmail(email)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(requireContext(), "Reset link sent to your email", Toast.LENGTH_LONG).show()
-                    findNavController().navigateUp()
+    private fun verifyAndSendEmailOtp(email: String) {
+        database.reference.child("Users").orderByChild("email").equalTo(email)
+            .get().addOnSuccessListener { snapshot ->
+                if (snapshot.exists()) {
+                    val otp = (100000..999999).random().toString()
+                    EmailSender.sendPasswordResetOtp(email, otp)
+                    
+                    val bundle = Bundle().apply {
+                        putString("recoveryType", "email")
+                        putString("identifier", email)
+                        putString("otp", otp)
+                    }
+                    findNavController().navigate(R.id.action_forgotPasswordSelectionFragment_to_otpVerificationFragment, bundle)
                 } else {
-                    Toast.makeText(requireContext(), "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "No account found with this email", Toast.LENGTH_SHORT).show()
                 }
             }
     }
 
-    private fun fetchPhoneAndStartSmsFlow(email: String) {
-        // Query database to find user with this email and get their phone number
-        database.reference.child("Users").orderByChild("email").equalTo(email)
+    private fun verifyAndSendSmsOtp(phone: String) {
+        // Ensure phone starts with +91 if needed, or matches DB format
+        val formattedPhone = if (phone.startsWith("+")) phone else "+91$phone"
+        
+        database.reference.child("Users").orderByChild("mobile").equalTo(phone)
             .get().addOnSuccessListener { snapshot ->
                 if (snapshot.exists()) {
-                    var phoneNumber: String? = null
-                    for (userSnapshot in snapshot.children) {
-                        phoneNumber = userSnapshot.child("mobile").value.toString()
+                    val bundle = Bundle().apply {
+                        putString("recoveryType", "sms")
+                        putString("phoneNumber", formattedPhone)
                     }
-
-                    if (phoneNumber != null) {
-                        val bundle = Bundle().apply {
-                            putString("phoneNumber", phoneNumber)
-                        }
-                        findNavController().navigate(R.id.action_forgotPasswordSelectionFragment_to_otpVerificationFragment, bundle)
-                    } else {
-                        Toast.makeText(requireContext(), "Phone number not found for this account", Toast.LENGTH_SHORT).show()
-                    }
+                    findNavController().navigate(R.id.action_forgotPasswordSelectionFragment_to_otpVerificationFragment, bundle)
                 } else {
-                    Toast.makeText(requireContext(), "No account found with this email", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "No account found with this number", Toast.LENGTH_SHORT).show()
                 }
             }
     }

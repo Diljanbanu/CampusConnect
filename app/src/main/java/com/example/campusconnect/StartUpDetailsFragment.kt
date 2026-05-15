@@ -57,8 +57,6 @@ class StartUpDetailsFragment : Fragment() {
                 override fun onCancelled(error: DatabaseError) {}
             })
         }
-
-        // NOTE: Navigation listeners removed as they are handled globally by MainActivity
     }
 
     private fun addMemberToLayout(member: TeamMember) {
@@ -72,7 +70,7 @@ class StartUpDetailsFragment : Fragment() {
         tvRole.text = member.role
         
         if (!member.imageUrl.isNullOrEmpty()) {
-            Glide.with(this).load(member.imageUrl).circleCrop().into(ivAvatar)
+            Glide.with(requireContext()).load(member.imageUrl).circleCrop().into(ivAvatar)
         } else {
             ivAvatar.setImageResource(android.R.drawable.ic_menu_report_image)
         }

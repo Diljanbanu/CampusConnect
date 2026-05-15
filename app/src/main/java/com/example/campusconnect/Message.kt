@@ -1,14 +1,18 @@
 package com.example.campusconnect
 
 data class Message(
-    val messageId: String? = null,
-    val senderId: String? = null,
-    val receiverId: String? = null,
-    val message: String? = null,
-    val timestamp: Long? = null,
-    val status: Int = 1, // 1: Sent, 2: Delivered, 3: Read
-    val seenAt: Long? = null, // Timestamp when the message was read
-    val type: String = "text",
-    val isDeleted: Boolean = false,
-    val deletedFor: String? = null // "sender", "receiver", or null (for everyone)
+    var messageId: String? = null,
+    var senderId: String? = null,
+    var receiverId: String? = null,
+    var message: String? = null,
+    var fileUrl: String? = null,
+    var fileName: String? = null,
+    var fileSize: String? = null,
+    var timestamp: Long? = null,
+    var status: Int? = 1,
+    var seenAt: Long? = null,
+    var type: String? = "text",
+    var deleted: Boolean? = false, // Changed from isDeleted to avoid naming issues
+    var deletedFor: String? = null,
+    var forwarded: Boolean? = false // Changed from isForwarded
 )

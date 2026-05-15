@@ -1,26 +1,21 @@
 package com.example.campusconnect
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.campusconnect.databinding.FragmentChatListBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.android.material.tabs.TabLayoutMediator
 
 class ChatListFragment : Fragment() {
 
     private var _binding: FragmentChatListBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var auth: FirebaseAuth
-    private lateinit var database: FirebaseDatabase
-    private lateinit var userAdapter: UserAdapter
-    private val activeUserList = mutableListOf<User>()
-    private val lastMessageTimes = mutableMapOf<String, Long>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,84 +28,64 @@ class ChatListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance()
-
-        setupRecyclerView()
-        fetchActiveChats()
+        setupViewPager()
 
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
+        binding.btnSearch.setOnClickListener {
+            if (binding.cvSearch.visibility == View.VISIBLE) {
+                binding.cvSearch.visibility = View.GONE
+                dispatchSearch("")
+            } else {
+                binding.cvSearch.visibility = View.VISIBLE
+                binding.etSearchChats.requestFocus()
+            }
+        }
+
+        binding.etSearchChats.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                dispatchSearch(s.toString())
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         binding.btnNewChat.setOnClickListener {
-            // "+" button opens the list of all users to start a new chat
             findNavController().navigate(R.id.action_chatListFragment_to_userListFragment)
         }
     }
 
-    private fun setupRecyclerView() {
-        userAdapter = UserAdapter(activeUserList) { user ->
-            val bundle = Bundle().apply {
-                putString("receiverId", user.uid)
-                putString("receiverName", user.fullName)
-            }
-            findNavController().navigate(R.id.action_chatListFragment_to_chatFragment, bundle)
+    private fun dispatchSearch(query: String) {
+        val fragment = childFragmentManager.findFragmentByTag("f0")
+        if (fragment is ChatTabFragment) {
+            fragment.filter(query)
         }
-        binding.rvChatList.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvChatList.adapter = userAdapter
     }
 
-    private fun fetchActiveChats() {
-        val currentUserId = auth.currentUser?.uid ?: return
-        
-        database.reference.child("Chats").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (_binding == null) return
-                
-                val activeIds = mutableSetOf<String>()
-                lastMessageTimes.clear()
+    private fun setupViewPager() {
+        val adapter = ChatPagerAdapter(this)
+        binding.viewPager.adapter = adapter
 
-                for (roomSnapshot in snapshot.children) {
-                    val roomId = roomSnapshot.key ?: continue
-                    if (roomId.contains(currentUserId)) {
-                        // Get the other user's ID
-                        val otherId = roomId.replace(currentUserId, "")
-                        activeIds.add(otherId)
-                        
-                        // Get last message timestamp for sorting
-                        var latestTime = 0L
-                        for (msgSnapshot in roomSnapshot.children) {
-                            val time = msgSnapshot.child("timestamp").value as? Long ?: 0L
-                            if (time > latestTime) latestTime = time
-                        }
-                        lastMessageTimes[otherId] = latestTime
-                    }
-                }
-                fetchUsersDetails(activeIds)
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "CHATS"
+                1 -> "STATUS"
+                else -> "CALLS"
             }
-            override fun onCancelled(error: DatabaseError) {}
-        })
+        }.attach()
     }
 
-    private fun fetchUsersDetails(activeIds: Set<String>) {
-        database.reference.child("Users").addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (_binding == null) return
-                activeUserList.clear()
-                for (userSnapshot in snapshot.children) {
-                    val user = userSnapshot.getValue(User::class.java)
-                    if (user != null && activeIds.contains(user.uid)) {
-                        activeUserList.add(user)
-                    }
-                }
-                
-                // Sort by most recent message (timestamp)
-                activeUserList.sortByDescending { lastMessageTimes[it.uid] ?: 0L }
-                userAdapter.notifyDataSetChanged()
+    class ChatPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+        override fun getItemCount(): Int = 3
+        override fun createFragment(position: Int): Fragment {
+            return when (position) {
+                0 -> ChatTabFragment()
+                1 -> StatusTabFragment()
+                else -> CallsTabFragment()
             }
-            override fun onCancelled(error: DatabaseError) {}
-        })
+        }
     }
 
     override fun onDestroyView() {

@@ -14,7 +14,24 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         remoteMessage.notification?.let {
-            sendNotification(it.title ?: "New Message", it.body ?: "")
+            val title = it.title ?: "New Message"
+            val body = it.body ?: ""
+            sendNotification(title, body)
+            
+            // Save to DB so it appears in the notification list
+            val userId = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
+            if (userId != null) {
+                // Check if notifications are enabled for this user
+                com.google.firebase.database.FirebaseDatabase.getInstance().reference
+                    .child("Users").child(userId).child("notificationsEnabled")
+                    .get().addOnSuccessListener { snapshot ->
+                        val isEnabled = snapshot.value as? Boolean ?: true
+                        if (isEnabled) {
+                            val type = remoteMessage.data["type"] ?: "general"
+                            NotificationHelper.sendNotification(userId, title, body, type)
+                        }
+                    }
+            }
         }
     }
 
