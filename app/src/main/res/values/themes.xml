@@ -4,6 +4,14 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primaryRed</item>
         <item name="android:statusBarColor">@color/primaryRed</item>
+
+        <!-- Default Font -->
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontFamily">sans-serif</item>
+
+        <!-- Default Widget Styles -->
+        <item name="materialButtonStyle">@style/Widget.CampusConnect.Button.Primary</item>
+        <item name="materialCardViewStyle">@style/Widget.CampusConnect.Card</item>
     </style>
 
     <style name="Theme.CampusConnect" parent="Base.Theme.CampusConnect" />

@@ -1,9 +1,9 @@
 package com.example.campusconnect.repository
 
-import com.example.campusconnect.Event
-import com.example.campusconnect.Skill
-import com.example.campusconnect.Startup
-import com.example.campusconnect.User
+import com.example.campusconnect.model.Event
+import com.example.campusconnect.model.Skill
+import com.example.campusconnect.model.Startup
+import com.example.campusconnect.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -22,7 +22,6 @@ object DataRepository {
             return
         }
 
-        // Fetch Current User
         database.reference.child("Users").child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 currentUser = snapshot.getValue(User::class.java)
@@ -46,7 +45,6 @@ object DataRepository {
             }
         }
 
-        // Fetch Approved Skills
         database.reference.child("Skills").orderByChild("status").equalTo("approved")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -59,7 +57,6 @@ object DataRepository {
                 override fun onCancelled(error: DatabaseError) { checkComplete() }
             })
 
-        // Fetch Approved Events
         database.reference.child("Events").orderByChild("status").equalTo("approved")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -72,7 +69,6 @@ object DataRepository {
                 override fun onCancelled(error: DatabaseError) { checkComplete() }
             })
 
-        // Fetch Approved Startups
         database.reference.child("Ideas").orderByChild("status").equalTo("approved")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
