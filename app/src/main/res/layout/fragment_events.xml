@@ -24,6 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <ImageView
+                android:id="@+id/ivUserHeaderImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -140,8 +141,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <!-- Dynamic categories will be added here or statically defined -->
                     <TextView
+                        android:id="@+id/catAll"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_category_selected"
@@ -151,6 +152,7 @@
                         android:textColor="@android:color/white"
                         android:textStyle="bold" />
                     <TextView
+                        android:id="@+id/catUpcoming"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -160,6 +162,7 @@
                         android:text="Upcoming"
                         android:textColor="#4B5563" />
                     <LinearLayout
+                        android:id="@+id/catLive"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -180,6 +183,7 @@
                             android:background="@drawable/bg_notification_dot" />
                     </LinearLayout>
                     <TextView
+                        android:id="@+id/catTechnical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -189,6 +193,7 @@
                         android:text="Technical"
                         android:textColor="#4B5563" />
                     <TextView
+                        android:id="@+id/catCultural"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -363,6 +368,7 @@
                         android:orientation="horizontal"
                         app:layout_constraintTop_toBottomOf="@id/tvPollQuestion">
                         <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvPollOption1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -376,14 +382,15 @@
                                 android:orientation="vertical"
                                 android:padding="12dp">
                                 <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-                                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="AI &amp; ML Workshop" android:textColor="#C1272D" android:textStyle="bold" android:textSize="12sp" />
-                                    <ImageView android:layout_width="16dp" android:layout_height="16dp" android:layout_alignParentEnd="true" android:src="@android:drawable/checkbox_on_background" app:tint="#C1272D" />
+                                    <TextView android:id="@+id/tvPollOption1Title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Option 1" android:textColor="#C1272D" android:textStyle="bold" android:textSize="12sp" />
+                                    <ImageView android:id="@+id/ivPollOption1Check" android:layout_width="16dp" android:layout_height="16dp" android:layout_alignParentEnd="true" android:src="@android:drawable/checkbox_on_background" app:tint="#C1272D" android:visibility="gone" />
                                 </RelativeLayout>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="65% (125 votes)" android:textColor="#4B5563" android:textSize="11sp" />
-                                <ProgressBar style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="4dp" android:layout_marginTop="8dp" android:progress="65" android:progressTint="#C1272D" />
+                                <TextView android:id="@+id/tvPollOption1Stats" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="0% (0 votes)" android:textColor="#4B5563" android:textSize="11sp" />
+                                <ProgressBar android:id="@+id/pbPollOption1" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="4dp" android:layout_marginTop="8dp" android:progress="0" android:progressTint="#C1272D" />
                             </LinearLayout>
                         </com.google.android.material.card.MaterialCardView>
                         <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvPollOption2"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -396,9 +403,12 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
                                 android:padding="12dp">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Web3 Seminar" android:textColor="#1F2937" android:textStyle="bold" android:textSize="12sp" />
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="35% (68 votes)" android:textColor="#4B5563" android:textSize="11sp" />
-                                <ProgressBar style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="4dp" android:layout_marginTop="8dp" android:progress="35" android:progressTint="#94A3B8" />
+                                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                                    <TextView android:id="@+id/tvPollOption2Title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Option 2" android:textColor="#1F2937" android:textStyle="bold" android:textSize="12sp" />
+                                    <ImageView android:id="@+id/ivPollOption2Check" android:layout_width="16dp" android:layout_height="16dp" android:layout_alignParentEnd="true" android:src="@android:drawable/checkbox_on_background" app:tint="#C1272D" android:visibility="gone" />
+                                </RelativeLayout>
+                                <TextView android:id="@+id/tvPollOption2Stats" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="0% (0 votes)" android:textColor="#4B5563" android:textSize="11sp" />
+                                <ProgressBar android:id="@+id/pbPollOption2" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="4dp" android:layout_marginTop="8dp" android:progress="0" android:progressTint="#94A3B8" />
                             </LinearLayout>
                         </com.google.android.material.card.MaterialCardView>
                     </LinearLayout>
@@ -476,7 +486,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_category_selected"
                     android:gravity="center"
-                    android:text="Upcoming (3)"
+                    android:text="Upcoming (0)"
                     android:textColor="@android:color/white"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -486,7 +496,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Live (1)"
+                    android:text="Live (0)"
                     android:textColor="#4B5563"
                     android:textSize="12sp" />
                 <TextView
@@ -495,7 +505,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Past (4)"
+                    android:text="Past (0)"
                     android:textColor="#4B5563"
                     android:textSize="12sp" />
             </LinearLayout>
