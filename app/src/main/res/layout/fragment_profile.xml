@@ -290,7 +290,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:tint="#6B7280" />
+<!--                            app:tint="#6B7280" />-->
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -340,7 +340,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:tint="#3B82F6" />
+<!--                            app:tint="#3B82F6" />-->
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -386,11 +386,11 @@
                             android:id="@+id/ivStartupIcon"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/rocket"
+                            android:src="@drawable/startup"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:tint="#F59E0B" />
+<!--                            app:tint="#F59E0B" />-->
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -436,11 +436,11 @@
                             android:id="@+id/ivLogoutIcon"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/on_off"
+                            android:src="@drawable/logout"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:tint="#EF4444" />
+<!--                            app:tint="#EF4444" />-->
 
                         <TextView
                             android:layout_width="wrap_content"
