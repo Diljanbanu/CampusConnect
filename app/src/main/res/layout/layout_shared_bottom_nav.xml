@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
+        <!-- Home -->
         <LinearLayout
             android:id="@+id/btnNavHome"
             android:layout_width="0dp"
@@ -25,7 +26,7 @@
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackground">
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivNavHome"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -37,9 +38,11 @@
                 android:layout_height="wrap_content"
                 android:text="Home"
                 android:textColor="@color/gray_text"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
+        <!-- Skills -->
         <LinearLayout
             android:id="@+id/btnNavSkills"
             android:layout_width="0dp"
@@ -50,7 +53,7 @@
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackground">
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivNavSkills"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -62,9 +65,11 @@
                 android:layout_height="wrap_content"
                 android:text="Skills"
                 android:textColor="@color/gray_text"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
+        <!-- StartUp -->
         <LinearLayout
             android:id="@+id/btnNavStartup"
             android:layout_width="0dp"
@@ -75,7 +80,7 @@
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackground">
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivNavStartup"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -87,9 +92,11 @@
                 android:layout_height="wrap_content"
                 android:text="StartUp"
                 android:textColor="@color/gray_text"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
+        <!-- Events -->
         <LinearLayout
             android:id="@+id/btnNavEvents"
             android:layout_width="0dp"
@@ -100,7 +107,7 @@
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackground">
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivNavEvents"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -112,9 +119,11 @@
                 android:layout_height="wrap_content"
                 android:text="Events"
                 android:textColor="@color/gray_text"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
+        <!-- Profile -->
         <LinearLayout
             android:id="@+id/btnNavProfile"
             android:layout_width="0dp"
@@ -125,7 +134,7 @@
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackground">
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivNavProfile"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -137,7 +146,8 @@
                 android:layout_height="wrap_content"
                 android:text="Profile"
                 android:textColor="@color/gray_text"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
