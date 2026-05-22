@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F9FB"
-    tools:context=".SettingsFragment">
+    tools:context=".view.SettingsFragment">
 
     <!-- Header -->
     <RelativeLayout
@@ -94,7 +94,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/ic_lock"
+                                android:src="@drawable/privacy"
                                 app:tint="#C1272D" />
                         </com.google.android.material.card.MaterialCardView>
 
@@ -147,7 +147,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/ic_key"
+                                android:src="@drawable/key"
                                 app:tint="#C1272D" />
                         </com.google.android.material.card.MaterialCardView>
 
@@ -273,7 +273,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/star"
+                                android:src="@drawable/dark_light"
                                 app:tint="#C1272D" />
                         </com.google.android.material.card.MaterialCardView>
 
@@ -350,7 +350,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/ic_info"
+                                android:src="@drawable/about"
                                 app:tint="#C1272D" />
                         </com.google.android.material.card.MaterialCardView>
 
@@ -403,7 +403,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/ic_shield"
+                                android:src="@drawable/privacy"
                                 app:tint="#C1272D" />
                         </com.google.android.material.card.MaterialCardView>
 
@@ -454,7 +454,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/ic_globe"
+                                android:src="@drawable/logo"
                                 app:tint="#C1272D" />
                         </com.google.android.material.card.MaterialCardView>
 

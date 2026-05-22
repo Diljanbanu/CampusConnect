@@ -6,346 +6,274 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <ScrollView
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingBottom="80dp">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:elevation="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="?attr/actionBarSize"
+            android:paddingHorizontal="16dp">
 
-            <!-- Header -->
-            <RelativeLayout
-                android:id="@+id/rlHeader"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:paddingHorizontal="16dp"
-                app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Back"
+                android:src="@drawable/back_arrow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#000000" />
 
-                <ImageView
-                    android:id="@+id/btnBack"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/back_arrow"
-                    app:tint="#000000"
-                    android:contentDescription="Back" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="Profile"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btnBack"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="24dp"
-                    android:layout_toEndOf="@id/btnBack"
-                    android:text="Profile"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/btnCall"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Call"
+                android:src="@drawable/mail_contact"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#4A5568" />
 
-                <ImageView
-                    android:id="@+id/btnCall"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_call"
-                    app:tint="#4A5568"
-                    android:contentDescription="Call" />
-            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-            <!-- Top Profile Section -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="100dp">
+
+            <!-- Profile Info Section -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clTopInfo"
+                android:id="@+id/clPublicHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                app:layout_constraintTop_toBottomOf="@id/rlHeader">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <View
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_marginStart="-60dp"
-                    android:layout_marginTop="-60dp"
-                    android:background="@drawable/bg_circle_red_light"
-                    android:backgroundTint="#FFF1F1"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvPublicProfile"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    app:cardCornerRadius="45dp"
+                    app:cardElevation="0dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="#F3F4F6"
+                    app:strokeWidth="2dp">
 
-                <FrameLayout
-                    android:id="@+id/flImage"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <com.google.android.material.card.MaterialCardView
+                    <ImageView
+                        android:id="@+id/ivPublicProfileImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cardCornerRadius="60dp"
-                        app:cardElevation="0dp"
-                        app:strokeColor="#FFFFFF"
-                        app:strokeWidth="4dp">
-                        <ImageView
-                            android:id="@+id/ivPublicProfileImage"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_profile_placeholder"
-                            android:contentDescription="Profile Photo" />
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <View
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="bottom|end"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/bg_circle_red"
-                        android:backgroundTint="#4CAF50" />
-                </FrameLayout>
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_profile_placeholder" />
+                </com.google.android.material.card.MaterialCardView>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@id/cvPublicProfile"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flImage"
-                    app:layout_constraintTop_toTopOf="@id/flImage">
+                    app:layout_constraintStart_toEndOf="@id/cvPublicProfile"
+                    app:layout_constraintTop_toTopOf="@id/cvPublicProfile">
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tvPublicName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/tvPublicName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Student Name"
-                            android:textColor="#000000"
-                            android:textSize="22sp"
-                            android:textStyle="bold" />
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginStart="8dp"
-                            android:src="@drawable/copy"
-                            app:tint="#C1272D"
-                            android:contentDescription="Verified" />
-                    </LinearLayout>
+                        android:text="Student Name"
+                        android:textColor="#000000"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvPublicRole"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:background="@drawable/bg_category_item"
-                        android:backgroundTint="#FFF1F1"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="4dp"
                         android:text="Software Developer"
                         android:textColor="#C1272D"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/tvPublicDept"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center_vertical" android:layout_marginBottom="4dp">
-                            <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/mail" app:tint="#6B7280" android:contentDescription="Email" />
-                            <TextView android:id="@+id/tvPublicEmail" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="email@rku.ac.in" android:textColor="#4B5563" android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center_vertical" android:layout_marginBottom="4dp">
-                            <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/menu" app:tint="#6B7280" android:contentDescription="Dept" />
-                            <TextView android:id="@+id/tvPublicDept" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Computer Engineering" android:textColor="#4B5563" android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center_vertical">
-                            <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/home" app:tint="#6B7280" android:contentDescription="Location" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="RK University, Rajkot" android:textColor="#4B5563" android:textSize="12sp" />
-                        </LinearLayout>
-                    </LinearLayout>
+                        android:layout_marginTop="2dp"
+                        android:text="Computer Engineering"
+                        android:textColor="#6B7280"
+                        android:textSize="12sp" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Stats Row -->
             <LinearLayout
-                android:id="@+id/llPublicStats"
+                android:id="@+id/llStats"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/bg_white_rounded_card"
                 android:orientation="horizontal"
-                android:paddingVertical="16dp"
-                android:baselineAligned="false"
-                app:layout_constraintTop_toBottomOf="@id/clTopInfo">
+                app:layout_constraintTop_toBottomOf="@id/clPublicHeader">
 
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                    <TextView android:id="@+id/tvStatSkills" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="#C1272D" android:textSize="18sp" android:textStyle="bold" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Skills" android:textColor="#6B7280" android:textSize="12sp" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvStatSkills"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Skills"
+                        android:textColor="#6B7280"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                    <TextView android:id="@+id/tvStatProjects" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="#C1272D" android:textSize="18sp" android:textStyle="bold" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Startups" android:textColor="#6B7280" android:textSize="12sp" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvStatProjects"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Startups"
+                        android:textColor="#6B7280"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                    <TextView android:id="@+id/tvStatCertificates" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="#C1272D" android:textSize="18sp" android:textStyle="bold" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Events" android:textColor="#6B7280" android:textSize="12sp" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvStatCertificates"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Events"
+                        android:textColor="#6B7280"
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- About Me -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clAbout"
+            <!-- Bio -->
+            <TextView
+                android:id="@+id/tvPublicBio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/bg_white_rounded_card"
-                android:padding="20dp"
-                app:layout_constraintTop_toBottomOf="@id/llPublicStats">
+                android:lineSpacingExtra="4dp"
+                android:text="RK University Student"
+                android:textColor="#1F2937"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/llStats" />
 
-                <TextView
-                    android:id="@+id/tvAboutTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="About Me"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvPublicBio"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="80dp"
-                    android:lineSpacingExtra="4dp"
-                    android:text="No bio provided yet."
-                    android:textColor="#4B5563"
-                    android:textSize="13sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvAboutTitle" />
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/rocket"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:contentDescription="Illustration" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Skills Section -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clSkills"
+            <!-- Tabs -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/profileTabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/bg_white_rounded_card"
-                android:padding="20dp"
-                app:layout_constraintTop_toBottomOf="@id/clAbout">
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/tvPublicBio"
+                app:tabIndicatorColor="#C1272D"
+                app:tabIndicatorHeight="2dp"
+                app:tabSelectedTextColor="#C1272D"
+                app:tabTextColor="#6B7280">
+                <com.google.android.material.tabs.TabItem android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Skills" />
+                <com.google.android.material.tabs.TabItem android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Startups" />
+                <com.google.android.material.tabs.TabItem android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Events" />
+            </com.google.android.material.tabs.TabLayout>
 
-                <TextView
-                    android:id="@+id/tvSkillsTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Skills"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <!-- Content Area -->
+            <LinearLayout
+                android:id="@+id/contentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                app:layout_constraintTop_toBottomOf="@id/profileTabs">
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/publicSkillChipGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:chipSpacingHorizontal="8dp"
-                    app:layout_constraintTop_toBottomOf="@id/tvSkillsTitle" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Startups Section -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clProjects"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/bg_white_rounded_card"
-                android:padding="20dp"
-                app:layout_constraintTop_toBottomOf="@id/clSkills">
-
-                <TextView
-                    android:id="@+id/tvProjectsTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Startups"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:chipSpacingHorizontal="8dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvPublicStartups"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:nestedScrollingEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tvProjectsTitle" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Events Section -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clEvents"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/bg_white_rounded_card"
-                android:padding="20dp"
-                app:layout_constraintTop_toBottomOf="@id/clProjects">
-
-                <TextView
-                    android:id="@+id/tvEventsTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Events"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvPublicEvents"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:nestedScrollingEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tvEventsTitle" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <TextView android:id="@+id/tvPublicEmail" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-    <!-- Bottom Action Bar -->
+    <!-- Bottom Bar -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -354,20 +282,19 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="72dp"
+            android:layout_height="80dp"
             android:background="@android:color/white"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingHorizontal="16dp">
+            android:paddingHorizontal="20dp">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnMessage"
                 style="@style/Widget.CampusConnect.Button.Primary"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
                 android:text="Send Message"
-                app:icon="@drawable/chat"
-                app:iconPadding="8dp" />
+                app:icon="@drawable/sms"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

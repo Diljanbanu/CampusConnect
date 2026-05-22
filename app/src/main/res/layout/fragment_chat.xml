@@ -24,7 +24,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white"
+            android:contentDescription="Back" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cvUser"
@@ -43,7 +44,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_profile_placeholder" />
+                android:src="@drawable/ic_profile_placeholder"
+                android:contentDescription="User" />
 
             <TextView
                 android:id="@+id/tvUserInitial"
@@ -97,16 +99,18 @@
                 android:id="@+id/btnVideoCall"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_camera"
-                app:tint="@android:color/white" />
+                android:src="@drawable/ic_camera"
+                app:tint="@android:color/white"
+                android:contentDescription="Video Call" />
 
             <ImageView
                 android:id="@+id/btnVoiceCall"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="16dp"
-                android:src="@android:drawable/ic_menu_call"
-                app:tint="@android:color/white" />
+                android:src="@drawable/mail_contact"
+                app:tint="@android:color/white"
+                android:contentDescription="Voice Call" />
 
             <ImageView
                 android:id="@+id/btnChatMenu"
@@ -114,7 +118,8 @@
                 android:layout_height="24dp"
                 android:layout_marginStart="16dp"
                 android:src="@drawable/menu"
-                app:tint="@android:color/white" />
+                app:tint="@android:color/white"
+                android:contentDescription="Menu" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -157,23 +162,26 @@
                 android:maxLines="4"
                 android:minHeight="40dp"
                 android:textColor="#000000"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:inputType="textCapSentences|textMultiLine" />
 
             <ImageView
                 android:id="@+id/btnImageAttachment"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="8dp"
-                android:src="@android:drawable/ic_menu_gallery"
-                app:tint="#9CA3AF" />
+                android:src="@drawable/copy"
+                app:tint="#9CA3AF"
+                android:contentDescription="Image" />
 
             <ImageView
                 android:id="@+id/btnCameraAttachment"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="12dp"
-                android:src="@android:drawable/ic_menu_camera"
-                app:tint="#9CA3AF" />
+                android:src="@drawable/ic_camera"
+                app:tint="#9CA3AF"
+                android:contentDescription="Camera" />
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -184,10 +192,11 @@
             android:src="@drawable/send"
             app:backgroundTint="#C1272D"
             app:fabSize="mini"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white"
+            android:contentDescription="Send" />
     </LinearLayout>
 
-    <!-- For compatibility with existing Kotlin code -->
+    <!-- Hidden compatibility icons -->
     <ImageView android:id="@+id/btnAddAttachment" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton android:id="@+id/btnVoiceMessage" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
 

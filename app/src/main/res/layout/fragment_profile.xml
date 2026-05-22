@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F9FB"
-    tools:context=".ProfileFragment">
+    tools:context=".view.ProfileFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -251,7 +251,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/chat"
+                        android:src="@drawable/sms"
                         app:tint="#000000" />
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -290,7 +290,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-<!--                            app:tint="#6B7280" />-->
+                            app:tint="#6B7280" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -340,7 +340,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-<!--                            app:tint="#3B82F6" />-->
+                            app:tint="#3B82F6" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -386,11 +386,11 @@
                             android:id="@+id/ivStartupIcon"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/startup"
+                            android:src="@drawable/rocket_launch"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-<!--                            app:tint="#F59E0B" />-->
+                            app:tint="#F59E0B" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -436,11 +436,11 @@
                             android:id="@+id/ivLogoutIcon"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/logout"
+                            android:src="@drawable/on_off"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-<!--                            app:tint="#EF4444" />-->
+                            app:tint="#EF4444" />
 
                         <TextView
                             android:layout_width="wrap_content"
