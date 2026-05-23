@@ -436,8 +436,10 @@
                         android:background="#F3F4F6" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/btnAppVersion"
                         android:layout_width="match_parent"
                         android:layout_height="72dp"
+                        android:background="?attr/selectableItemBackground"
                         android:paddingHorizontal="16dp">
 
                         <com.google.android.material.card.MaterialCardView
@@ -454,7 +456,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/logo"
+                                android:src="@drawable/ic_globe"
                                 app:tint="#C1272D" />
                         </com.google.android.material.card.MaterialCardView>
 

@@ -19,7 +19,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_centerVertical="true"
-            android:src="@android:drawable/ic_dialog_info"
+            android:src="@drawable/about"
             app:tint="#FF0000" />
 
         <LinearLayout
@@ -53,7 +53,7 @@
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@android:drawable/ic_media_play"
+            android:src="@drawable/copy"
             app:tint="#000000" />
 
     </RelativeLayout>

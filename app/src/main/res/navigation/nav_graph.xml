@@ -165,7 +165,16 @@
         <action
             android:id="@+id/action_settingsFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_appVersionFragment"
+            app:destination="@id/appVersionFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/appVersionFragment"
+        android:name="com.example.campusconnect.view.AppVersionFragment"
+        android:label="App Version"
+        tools:layout="@layout/fragment_app_version" />
 
     <fragment
         android:id="@+id/changePasswordFragment"

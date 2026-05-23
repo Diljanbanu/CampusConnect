@@ -15,7 +15,7 @@
             android:id="@+id/ivMemberAvatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@android:drawable/ic_menu_report_image"
+            android:src="@drawable/profile_circle"
             android:scaleType="centerCrop" />
     </com.google.android.material.card.MaterialCardView>
 
@@ -48,6 +48,6 @@
         android:layout_height="24dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:src="@android:drawable/ic_media_play"
+        android:src="@drawable/copy"
         app:tint="#000000" />
 </RelativeLayout>

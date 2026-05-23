@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:src="@android:drawable/ic_menu_call"
+            android:src="@drawable/mail_contact"
             android:visibility="gone"
             app:backgroundTint="#22C55E"
             app:tint="@android:color/white" />
