@@ -7,13 +7,11 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <com.google.android.material.card.MaterialCardView
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#E1F5FE"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="0dp"
-        app:strokeWidth="0dp">
+        android:background="@drawable/bg_white_rounded_card"
+        android:backgroundTint="#F1F5F9">
 
         <TextView
             android:id="@+id/tvDateHeader"
@@ -22,8 +20,8 @@
             android:paddingHorizontal="12dp"
             android:paddingVertical="4dp"
             android:text="Today"
-            android:textColor="#546E7A"
+            android:textColor="#64748B"
             android:textSize="12sp"
             android:textStyle="bold" />
-    </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
 </LinearLayout>

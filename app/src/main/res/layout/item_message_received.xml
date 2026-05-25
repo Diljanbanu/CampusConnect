@@ -1,108 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="12dp"
-    android:paddingVertical="4dp">
+    android:padding="8dp">
 
-    <LinearLayout
-        android:id="@+id/llReceivedMessage"
+    <FrameLayout
+        android:id="@+id/cvUserImage"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/profile_circle"
+        android:backgroundTint="#FFEAEA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/ivUserImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_profile_placeholder"
+            android:background="@drawable/profile_circle"
+            android:clipToOutline="true"
+            android:contentDescription="User" />
+
+        <TextView
+            android:id="@+id/tvUserInitial"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="U"
+            android:textColor="#C1272D"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvForwardedLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/bg_chat_received"
-        android:elevation="1dp"
-        android:orientation="vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="2dp"
+        android:text="Forwarded"
+        android:textColor="#9CA3AF"
+        android:textSize="10sp"
+        android:textStyle="italic"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@id/cvUserImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/bg_received_message"
+        android:maxWidth="260dp"
         android:paddingHorizontal="12dp"
-        android:paddingVertical="8dp">
+        android:paddingVertical="8dp"
+        android:text="Received message content"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/cvUserImage"
+        app:layout_constraintTop_toBottomOf="@id/tvForwardedLabel" />
 
-        <TextView
-            android:id="@+id/tvForwardedLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:text="Forwarded"
-            android:textColor="#6B7280"
-            android:textSize="10sp"
-            android:textStyle="italic"
-            android:visibility="gone" />
+    <FrameLayout
+        android:id="@+id/cardImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="8dp"
+        android:visibility="gone"
+        android:background="@drawable/bg_received_message"
+        android:padding="4dp"
+        app:layout_constraintStart_toEndOf="@id/cvUserImage"
+        app:layout_constraintTop_toBottomOf="@id/tvForwardedLabel">
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:clipToOutline="true"
+            android:background="@drawable/bg_white_rounded_card"
+            android:contentDescription="Received Image" />
+    </FrameLayout>
 
-        <TextView
-            android:id="@+id/tvReceivedMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxWidth="260dp"
-            android:textColor="#000000"
-            android:textSize="15sp" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardReceivedImage"
-            android:layout_width="220dp"
-            android:layout_height="220dp"
-            android:layout_marginTop="4dp"
-            android:visibility="gone"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="0dp"
-            app:strokeColor="#DDDDDD"
-            app:strokeWidth="1dp">
-            <ImageView
-                android:id="@+id/ivReceivedImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <LinearLayout
-            android:id="@+id/llFileContainer"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="#1A000000"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            android:visibility="gone">
-            <ImageView
-                android:id="@+id/ivFileIcon"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_document" />
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tvFileName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="middle"
-                    android:maxLines="1"
-                    android:text="document.pdf"
-                    android:textColor="#000000"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/tvFileSize"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="0 KB"
-                    android:textColor="#6B7280"
-                    android:textSize="11sp" />
-            </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llFileContainer"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/bg_received_message"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@id/cvUserImage"
+        app:layout_constraintTop_toBottomOf="@id/tvForwardedLabel">
+        <ImageView android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/copy" app:tint="#C1272D" android:contentDescription="File" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:orientation="vertical">
+            <TextView android:id="@+id/tvFileName" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="file.pdf" android:textColor="#000000" android:textStyle="bold" android:textSize="12sp" android:ellipsize="middle" android:maxLines="1" />
+            <TextView android:id="@+id/tvFileSize" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="2.4 MB" android:textColor="#64748B" android:textSize="10sp" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvReceivedTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="2dp"
-            android:text="12:00 PM"
-            android:textColor="#9CA3AF"
-            android:textSize="10sp" />
     </LinearLayout>
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/tvTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="10:30 AM"
+        android:textColor="#9CA3AF"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@id/tvMessage"
+        app:layout_constraintTop_toBottomOf="@id/tvMessage" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

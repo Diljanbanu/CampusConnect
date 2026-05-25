@@ -91,7 +91,14 @@
         android:id="@+id/startupDetailsFragment"
         android:name="com.example.campusconnect.view.StartUpDetailsFragment"
         android:label="StartUp Details"
-        tools:layout="@layout/fragment_startup_details" />
+        tools:layout="@layout/fragment_startup_details">
+        <argument
+            android:name="startup"
+            app:argType="com.example.campusconnect.model.Startup" />
+        <action
+            android:id="@+id/action_startupDetailsFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/eventsFragment"
@@ -153,7 +160,14 @@
         <action android:id="@+id/action_profileFragment_to_myStartupsFragment" app:destination="@id/myStartupsFragment" />
         <action android:id="@+id/action_profileFragment_to_resumeBuilderFragment" app:destination="@id/resumeBuilderFragment" />
         <action android:id="@+id/action_profileFragment_to_settingsFragment" app:destination="@id/settingsFragment" />
+        <action android:id="@+id/action_profileFragment_to_mySkillsFragment" app:destination="@id/mySkillsFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/mySkillsFragment"
+        android:name="com.example.campusconnect.view.MySkillsFragment"
+        android:label="My Skills"
+        tools:layout="@layout/fragment_my_skills" />
 
     <fragment
         android:id="@+id/settingsFragment"
@@ -168,7 +182,16 @@
         <action
             android:id="@+id/action_settingsFragment_to_appVersionFragment"
             app:destination="@id/appVersionFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_privacyPolicyFragment"
+            app:destination="@id/privacyPolicyFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.example.campusconnect.view.PrivacyPolicyFragment"
+        android:label="Privacy Policy"
+        tools:layout="@layout/fragment_privacy_policy" />
 
     <fragment
         android:id="@+id/appVersionFragment"

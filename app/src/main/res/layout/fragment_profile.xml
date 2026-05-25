@@ -31,23 +31,26 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_profile_gradient" />
+                    android:background="@drawable/profile_circle"
+                    android:backgroundTint="#C1272D" />
 
-                <com.google.android.material.card.MaterialCardView
+                <FrameLayout
                     android:id="@+id/cardProfileImage"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
-                    app:cardCornerRadius="50dp"
-                    app:cardElevation="0dp"
-                    app:strokeWidth="0dp">
+                    android:background="@drawable/profile_circle"
+                    android:backgroundTint="#FFFFFF">
 
                     <ImageView
                         android:id="@+id/ivProfileImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_profile_placeholder" />
+                        android:src="@drawable/ic_profile_placeholder"
+                        android:background="@drawable/profile_circle"
+                        android:clipToOutline="true"
+                        android:contentDescription="Profile Picture" />
 
                     <TextView
                         android:id="@+id/tvProfileInitial"
@@ -58,7 +61,7 @@
                         android:textColor="#D1D5DB"
                         android:textSize="32sp"
                         android:textStyle="bold" />
-                </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
 
                 <ImageView
                     android:id="@+id/btnAddImage"
@@ -68,7 +71,8 @@
                     android:background="@drawable/bg_circle_blue_plus"
                     android:padding="8dp"
                     android:src="@drawable/add"
-                    app:tint="@android:color/white" />
+                    app:tint="@android:color/white"
+                    android:contentDescription="Add Photo" />
             </FrameLayout>
 
             <LinearLayout
@@ -236,24 +240,22 @@
                     app:iconPadding="8dp"
                     app:iconSize="18dp" />
 
-                <com.google.android.material.card.MaterialCardView
+                <FrameLayout
                     android:id="@+id/btnChatListFAB"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="12dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="2dp"
-                    app:strokeWidth="1dp"
-                    app:strokeColor="#F3F4F6">
+                    android:background="@drawable/bg_white_rounded_card"
+                    android:elevation="2dp">
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
                         android:src="@drawable/sms"
-                        app:tint="#000000" />
-                </com.google.android.material.card.MaterialCardView>
+                        app:tint="#000000"
+                        android:contentDescription="Chat" />
+                </FrameLayout>
             </LinearLayout>
 
             <!-- Menu List -->
@@ -266,16 +268,13 @@
                 app:layout_constraintTop_toBottomOf="@id/llButtons">
 
                 <!-- Settings -->
-                <com.google.android.material.card.MaterialCardView
+                <FrameLayout
                     android:id="@+id/btnSettings"
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:layout_marginBottom="12dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:strokeColor="#F3F4F6"
-                    app:strokeWidth="1dp">
+                    android:background="@drawable/bg_white_rounded_card"
+                    android:elevation="0dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -290,7 +289,8 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:tint="#6B7280" />
+                            app:tint="#6B7280"
+                            android:contentDescription="Settings" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -311,21 +311,68 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:tint="#D1D5DB" />
+                            app:tint="#D1D5DB"
+                            android:contentDescription="Go" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
+
+                <!-- My Skills -->
+                <FrameLayout
+                    android:id="@+id/btnMySkills"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_white_rounded_card"
+                    android:elevation="0dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingHorizontal="16dp">
+
+                        <ImageView
+                            android:id="@+id/ivSkillsIcon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/skills"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="#8B5CF6"
+                            android:contentDescription="Skills" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="My Skills"
+                            android:textColor="#000000"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/ivSkillsIcon"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_chevron_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="#D1D5DB"
+                            android:contentDescription="Go" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </FrameLayout>
 
                 <!-- My Registrations -->
-                <com.google.android.material.card.MaterialCardView
+                <FrameLayout
                     android:id="@+id/optionMyEvents"
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:layout_marginBottom="12dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:strokeColor="#F3F4F6"
-                    app:strokeWidth="1dp">
+                    android:background="@drawable/bg_white_rounded_card"
+                    android:elevation="0dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -340,7 +387,8 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:tint="#3B82F6" />
+                            app:tint="#3B82F6"
+                            android:contentDescription="Events" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -361,21 +409,19 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:tint="#D1D5DB" />
+                            app:tint="#D1D5DB"
+                            android:contentDescription="Go" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
 
                 <!-- My Startup Ideas -->
-                <com.google.android.material.card.MaterialCardView
+                <FrameLayout
                     android:id="@+id/optionMyStartups"
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:layout_marginBottom="12dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:strokeColor="#F3F4F6"
-                    app:strokeWidth="1dp">
+                    android:background="@drawable/bg_white_rounded_card"
+                    android:elevation="0dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -390,7 +436,8 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:tint="#F59E0B" />
+                            app:tint="#F59E0B"
+                            android:contentDescription="Startups" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -411,21 +458,19 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:tint="#D1D5DB" />
+                            app:tint="#D1D5DB"
+                            android:contentDescription="Go" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
 
                 <!-- Logout -->
-                <com.google.android.material.card.MaterialCardView
+                <FrameLayout
                     android:id="@+id/btnLogout"
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:layout_marginBottom="40dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:strokeColor="#F3F4F6"
-                    app:strokeWidth="1dp">
+                    android:background="@drawable/bg_white_rounded_card"
+                    android:elevation="0dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -440,7 +485,8 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:tint="#EF4444" />
+                            app:tint="#EF4444"
+                            android:contentDescription="Logout" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -461,9 +507,10 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:tint="#D1D5DB" />
+                            app:tint="#D1D5DB"
+                            android:contentDescription="Go" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
 
             </LinearLayout>
 

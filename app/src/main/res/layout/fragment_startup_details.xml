@@ -4,13 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA"
-    tools:context=".StartUpDetailsFragment">
+    android:background="#F8F9FB">
 
-    <ScrollView
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:elevation="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Back"
+                android:src="@drawable/back_arrow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#000000" />
+
+            <TextView
+                android:id="@+id/tvHeaderTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Startup Detail"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btnBookmark"
+                app:layout_constraintStart_toEndOf="@id/btnBack"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/btnBookmark"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Bookmark"
+                android:src="@drawable/ic_bookmark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#4A5568" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false">
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,119 +72,571 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Top Header -->
-            <ImageView
-                android:layout_width="150dp"
+            <!-- Banner Section Container -->
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/rkulogo" />
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="0dp"
+                android:paddingBottom="20dp">
 
-            <TextView
-                android:id="@+id/tvStartupTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Startup Title"
-                android:textColor="#000000"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <!-- Description Card -->
-            <com.google.android.material.card.MaterialCardView
+                    <View
+                        android:id="@+id/bannerBg"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:background="@drawable/bg_featured_event"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvIncubatorStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/bg_white_card"
+                        android:backgroundTint="#4DFFFFFF"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp"
+                        android:text="INCUBATOR APPROVED"
+                        android:textColor="@android:color/white"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <FrameLayout
+                        android:id="@+id/cvStartupLogo"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="100dp"
+                        android:background="@drawable/bg_white_rounded_card"
+                        android:elevation="4dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tvStartupInitial"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_profile_gradient"
+                            android:gravity="center"
+                            android:text="C"
+                            android:textColor="@android:color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:backgroundTint="#FFFFFF"
+                            android:clipToOutline="true" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvStartupTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="Startup Name"
+                        android:textColor="#000000"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/cvStartupLogo"
+                        app:layout_constraintTop_toBottomOf="@id/bannerBg"
+                        android:layout_marginTop="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvStartupSubtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category • STATUS"
+                        android:textColor="#9CA3AF"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@id/tvStartupTitle"
+                        app:layout_constraintTop_toBottomOf="@id/tvStartupTitle" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+
+            <!-- Concept Summary Card Container -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@android:color/white"
-                app:cardCornerRadius="10dp"
-                app:strokeWidth="0dp">
-                <TextView
-                    android:id="@+id/tvStartupDesc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="Description"
-                    android:textColor="#000000"
-                    android:textSize="14sp" />
-            </com.google.android.material.card.MaterialCardView>
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="0dp"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <!-- Required Skills Card -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@android:color/white"
-                app:cardCornerRadius="12dp"
-                app:strokeWidth="0dp">
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_height="wrap_content">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Required Skills"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:text="CONCEPT SUMMARY"
+                        android:textColor="#94A3B8"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.1" />
                     <TextView
-                        android:id="@+id/tvRequiredSkills"
-                        android:layout_width="match_parent"
+                        android:id="@+id/tvStageBadge"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Skills"
-                        android:textColor="#1A1C1E"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/bg_category_item"
+                        android:backgroundTint="#F0FDF4"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        android:text="Development Stage"
+                        android:textColor="#16A34A"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
 
-            <!-- Team Members Card -->
-            <com.google.android.material.card.MaterialCardView
+                <TextView
+                    android:id="@+id/tvConceptSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:lineSpacingExtra="4dp"
+                    android:text="Concept summary text goes here."
+                    android:textColor="#1F2937"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="PROBLEM STATEMENT:"
+                    android:textColor="#94A3B8"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1" />
+
+                <TextView
+                    android:id="@+id/tvProblemStatement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingExtra="4dp"
+                    android:text="Problem statement text goes here."
+                    android:textColor="#4B5563"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Progress Tracker Card Container -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                app:cardBackgroundColor="@android:color/white"
-                app:cardCornerRadius="12dp"
-                app:strokeWidth="0dp">
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="0dp"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="STARTUP PROGRESS TRACKER"
+                    android:textColor="#94A3B8"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1" />
+
+                <!-- Custom Progress Steps -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="#E2E8F0" />
+
+                    <View
+                        android:id="@+id/progressLine"
+                        android:layout_width="0dp"
+                        android:layout_height="4dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="#C1272D" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <include layout="@layout/item_progress_step" android:id="@+id/step1" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                        <include layout="@layout/item_progress_step" android:id="@+id/step2" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                        <include layout="@layout/item_progress_step" android:id="@+id/step3" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                        <include layout="@layout/item_progress_step" android:id="@+id/step4" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                        <include layout="@layout/item_progress_step" android:id="@+id/step5" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!-- Founder Card Container -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="0dp"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FOUNDER &amp; MENTOR"
+                    android:textColor="#94A3B8"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <FrameLayout
+                        android:id="@+id/cvFounder"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/profile_circle"
+                        android:backgroundTint="#FFF1F1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+                        <TextView
+                            android:id="@+id/tvFounderInitial"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="FD"
+                            android:textColor="#C1272D"
+                            android:textStyle="bold" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvFounderName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Founder Name"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/btnChatFounder"
+                        app:layout_constraintStart_toEndOf="@id/cvFounder"
+                        app:layout_constraintTop_toTopOf="@id/cvFounder" />
+
+                    <TextView
+                        android:id="@+id/tvFounderDept"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="DEPARTMENT"
+                        android:textColor="#94A3B8"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="@id/tvFounderName"
+                        app:layout_constraintTop_toBottomOf="@id/tvFounderName" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnChatFounder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:backgroundTint="#C1272D"
+                        android:paddingHorizontal="16dp"
+                        android:text="Chat"
+                        android:textAllCaps="false"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        app:cornerRadius="12dp"
+                        app:icon="@drawable/sms"
+                        app:iconSize="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#F3F4F6" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Faculty Advisor:"
+                        android:textColor="#94A3B8"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvFacultyAdvisor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="Prof. Advisor"
+                        android:textColor="#1F2937"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!-- Open Positions Card Container -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="0dp"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="OPEN POSITIONS"
+                        android:textColor="#94A3B8"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.1" />
+                    <TextView
+                        android:id="@+id/tvHiringBadge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/bg_category_item"
+                        android:backgroundTint="#FFF1F1"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        android:text="Urgent Hiring"
+                        android:textColor="#C1272D"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvOpenPositions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Flutter, Stripe, Backend"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_white_rounded_card"
+                    android:backgroundTint="#F5F3FF">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/star"
+                            app:tint="#8B5CF6"
+                            android:contentDescription="Star" />
+                        <TextView
+                            android:id="@+id/tvAiCompatibility"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="AI Compatibility Check: You match with 94% compatibility score."
+                            android:textColor="#5B21B6"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- Incubator Media Pitch Deck Card Container -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="0dp"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="INCUBATOR MEDIA PITCH DECK"
+                    android:textColor="#94A3B8"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Team Members"
-                            android:textColor="#000000"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:id="@+id/tvTeamCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:text="0 of 4 joined"
-                            android:textColor="#757575"
-                            android:textSize="12sp" />
-                    </RelativeLayout>
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
 
-                    <!-- Dynamic Team List -->
-                    <LinearLayout
-                        android:id="@+id/llTeamMembers"
-                        android:layout_width="match_parent"
+                    <FrameLayout
+                        android:id="@+id/btnPitchDeck"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:orientation="vertical" />
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_white_rounded_card"
+                        android:backgroundTint="#F8FAFC">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="12dp">
+                            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/copy" app:tint="#C1272D" android:contentDescription="Pitch Deck" />
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:orientation="vertical">
+                                <TextView android:id="@+id/tvPitchDeckName" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Pitch_Deck.pdf" android:textColor="#000000" android:textStyle="bold" android:textSize="12sp" android:ellipsize="middle" android:maxLines="1" />
+                                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="PDF • 2.8 MB" android:textColor="#94A3B8" android:textSize="10sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </FrameLayout>
 
+                    <FrameLayout
+                        android:id="@+id/btnDemoVideo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_white_rounded_card"
+                        android:backgroundTint="#F8FAFC">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="12dp">
+                            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/mail_contact" app:tint="#3B82F6" android:contentDescription="Demo Video" />
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:orientation="vertical">
+                                <TextView android:id="@+id/tvDemoVideoName" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Demo_Video.mp4" android:textColor="#000000" android:textStyle="bold" android:textSize="12sp" android:ellipsize="middle" android:maxLines="1" />
+                                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="MP4 • 12.4 MB" android:textColor="#94A3B8" android:textSize="10sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </FrameLayout>
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Validation Poll Card Container -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="0dp"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TEAM VALIDATION POLL"
+                    android:textColor="#94A3B8"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1" />
+
+                <TextView
+                    android:id="@+id/tvPollQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Which cloud services architecture should we finalize for database deployment?"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:id="@+id/btnPollOption1"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_white_rounded_card"
+                    android:elevation="0dp"
+                    android:padding="1dp">
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:paddingHorizontal="16dp">
+                        <TextView android:id="@+id/tvOption1Title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:text="A: Firebase Cloud Firestore" android:textColor="#1F2937" android:textSize="13sp" />
+                        <TextView android:id="@+id/tvOption1Percent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:text="65%" android:textColor="#94A3B8" android:textSize="13sp" />
+                    </RelativeLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/btnPollOption2"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_white_rounded_card"
+                    android:elevation="0dp"
+                    android:padding="1dp">
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:paddingHorizontal="16dp">
+                        <TextView android:id="@+id/tvOption2Title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:text="B: Self-Hosted PostgreSQL" android:textColor="#1F2937" android:textSize="13sp" />
+                        <TextView android:id="@+id/tvOption2Percent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:text="35%" android:textColor="#94A3B8" android:textSize="13sp" />
+                    </RelativeLayout>
+                </FrameLayout>
+            </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Bottom Bar -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:cardElevation="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnJoinRequest"
+                style="@style/Widget.CampusConnect.Button.Primary"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="2"
+                android:text="Send Join Request" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGroupChat"
+                style="@style/Widget.CampusConnect.Button.Outlined"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:text="Group Chat"
+                android:textColor="#1F2937"
+                app:strokeColor="#F3F4F6" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -22,7 +22,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="#000000" />
+            app:tint="#000000"
+            android:contentDescription="Back" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,7 +45,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="#000000" />
+            app:tint="#000000"
+            android:contentDescription="Bookmark" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -58,15 +60,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Banner Card -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- Banner Card Container -->
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="0dp">
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="0dp"
+                android:clipToOutline="true">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -77,7 +79,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/bg_featured_event" />
+                        android:src="@drawable/bg_featured_event"
+                        android:contentDescription="Event Banner" />
 
                     <View
                         android:layout_width="match_parent"
@@ -126,13 +129,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
                                 android:src="@drawable/event"
-                                app:tint="@android:color/white" />
+                                app:tint="@android:color/white"
+                                android:contentDescription="Date" />
 
                             <TextView
                                 android:id="@+id/tvBannerDate"
@@ -148,13 +153,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="14dp"
                                 android:layout_height="14dp"
                                 android:src="@drawable/ic_location_pin"
-                                app:tint="@android:color/white" />
+                                app:tint="@android:color/white"
+                                android:contentDescription="Location" />
 
                             <TextView
                                 android:id="@+id/tvBannerLocation"
@@ -167,7 +174,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
 
             <!-- Stats Row -->
             <LinearLayout
@@ -184,20 +191,20 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.google.android.material.card.MaterialCardView
+                    <FrameLayout
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        app:cardBackgroundColor="#FFF1F1"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="0dp">
+                        android:background="@drawable/profile_circle"
+                        android:backgroundTint="#FFF1F1">
 
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_gravity="center"
                             android:src="@drawable/event"
-                            app:tint="#C1272D" />
-                    </com.google.android.material.card.MaterialCardView>
+                            app:tint="#C1272D"
+                            android:contentDescription="Date Stats" />
+                    </FrameLayout>
 
                     <TextView
                         android:id="@+id/tvStatsDate"
@@ -224,20 +231,20 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.google.android.material.card.MaterialCardView
+                    <FrameLayout
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        app:cardBackgroundColor="#F1F5FE"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="0dp">
+                        android:background="@drawable/profile_circle"
+                        android:backgroundTint="#F1F5FE">
 
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_time"
-                            app:tint="#3B82F6" />
-                    </com.google.android.material.card.MaterialCardView>
+                            app:tint="#3B82F6"
+                            android:contentDescription="Time Stats" />
+                    </FrameLayout>
 
                     <TextView
                         android:id="@+id/tvStatsTime"
@@ -264,20 +271,20 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.google.android.material.card.MaterialCardView
+                    <FrameLayout
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        app:cardBackgroundColor="#FFF7ED"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="0dp">
+                        android:background="@drawable/profile_circle"
+                        android:backgroundTint="#FFF7ED">
 
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_location_pin"
-                            app:tint="#F59E0B" />
-                    </com.google.android.material.card.MaterialCardView>
+                            app:tint="#F59E0B"
+                            android:contentDescription="Venue Stats" />
+                    </FrameLayout>
 
                     <TextView
                         android:id="@+id/tvStatsVenue"
@@ -304,20 +311,20 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.google.android.material.card.MaterialCardView
+                    <FrameLayout
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        app:cardBackgroundColor="#F5F3FF"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="0dp">
+                        android:background="@drawable/profile_circle"
+                        android:backgroundTint="#F5F3FF">
 
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_group"
-                            app:tint="#8B5CF6" />
-                    </com.google.android.material.card.MaterialCardView>
+                            app:tint="#8B5CF6"
+                            android:contentDescription="Seats Stats" />
+                    </FrameLayout>
 
                     <TextView
                         android:id="@+id/tvStatsSeats"
@@ -392,84 +399,75 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="12dp"
-                app:cardBackgroundColor="@android:color/white"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="#F3F4F6"
-                app:strokeWidth="1dp">
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="0dp"
+                android:padding="12dp"
+                android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <FrameLayout
+                    android:id="@+id/cvOrganizerLogo"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/profile_circle"
+                    android:backgroundTint="#F3F4F6">
+
+                    <ImageView
+                        android:id="@+id/ivOrganizerLogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/rkulogo"
+                        android:contentDescription="Organizer Logo" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="12dp">
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/cvOrganizerLogo"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        app:cardCornerRadius="24dp"
-                        app:cardElevation="0dp">
-
-                        <ImageView
-                            android:id="@+id/ivOrganizerLogo"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/rkulogo" />
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tvOrganizerName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="16dp"
-                        android:layout_toEndOf="@id/cvOrganizerLogo"
-                        android:orientation="vertical">
+                        android:text="RKU ACM Student Chapter"
+                        android:textColor="#1F2937"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/tvOrganizerName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="RKU ACM Student Chapter"
-                            android:textColor="#1F2937"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvOrganizerEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="contact@rku.ac.in"
+                        android:textColor="#6B7280"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tvOrganizerEmail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="contact@rku.ac.in"
-                            android:textColor="#6B7280"
-                            android:textSize="12sp" />
-                    </LinearLayout>
+                <FrameLayout
+                    android:id="@+id/btnEmailOrganizer"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/bg_white_rounded_card"
+                    android:backgroundTint="#FEE2E2">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/btnEmailOrganizer"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        app:cardBackgroundColor="@android:color/white"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="0dp"
-                        app:strokeColor="#FEE2E2"
-                        app:strokeWidth="1dp">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/mail"
-                            app:tint="#C1272D" />
-                    </com.google.android.material.card.MaterialCardView>
-                </RelativeLayout>
-            </com.google.android.material.card.MaterialCardView>
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/mail"
+                        app:tint="#C1272D"
+                        android:contentDescription="Email Organizer" />
+                </FrameLayout>
+            </LinearLayout>
 
             <!-- Registered Students -->
             <TextView

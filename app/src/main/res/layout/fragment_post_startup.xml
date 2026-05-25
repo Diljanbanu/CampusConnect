@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_gray_bg">
+    android:background="#F8F9FB">
 
     <ScrollView
         android:layout_width="0dp"
@@ -27,14 +27,14 @@
                 android:src="@drawable/back_arrow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                />
+                android:contentDescription="Back" />
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Post StartUp Idea"
-                android:textColor="@color/black"
+                android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/btnBack"
@@ -43,18 +43,16 @@
                 app:layout_constraintTop_toTopOf="@id/btnBack" />
 
             <!-- StartUp Title -->
-            <com.google.android.material.card.MaterialCardView
+            <FrameLayout
                 android:id="@+id/cardTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle"
-                app:strokeWidth="0dp">
+                app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -66,7 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="StartUp Title"
-                        android:textColor="@color/black"
+                        android:textColor="#000000"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -80,21 +78,19 @@
                         android:padding="12dp"
                         android:textSize="14sp" />
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
 
             <!-- Required Skills -->
-            <com.google.android.material.card.MaterialCardView
+            <FrameLayout
                 android:id="@+id/cardSkills"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardTitle"
-                app:strokeWidth="0dp">
+                app:layout_constraintTop_toBottomOf="@id/cardTitle">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -106,7 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Required Skills"
-                        android:textColor="@color/black"
+                        android:textColor="#000000"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -120,21 +116,19 @@
                         android:padding="12dp"
                         android:textSize="14sp" />
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
 
             <!-- Team Size -->
-            <com.google.android.material.card.MaterialCardView
+            <FrameLayout
                 android:id="@+id/cardTeam"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardSkills"
-                app:strokeWidth="0dp">
+                app:layout_constraintTop_toBottomOf="@id/cardSkills">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -146,7 +140,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Team Size"
-                        android:textColor="@color/black"
+                        android:textColor="#000000"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -160,21 +154,19 @@
                         android:padding="12dp"
                         android:textSize="14sp" />
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
 
             <!-- StartUp Stage -->
-            <com.google.android.material.card.MaterialCardView
+            <FrameLayout
                 android:id="@+id/cardStage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardTeam"
-                app:strokeWidth="0dp">
+                app:layout_constraintTop_toBottomOf="@id/cardTeam">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -186,7 +178,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="StartUp Stage"
-                        android:textColor="@color/black"
+                        android:textColor="#000000"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -208,21 +200,19 @@
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
 
             <!-- Description -->
-            <com.google.android.material.card.MaterialCardView
+            <FrameLayout
                 android:id="@+id/cardDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardStage"
-                app:strokeWidth="0dp">
+                app:layout_constraintTop_toBottomOf="@id/cardStage">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -234,7 +224,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Description"
-                        android:textColor="@color/black"
+                        android:textColor="#000000"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -250,7 +240,7 @@
                         android:padding="12dp"
                         android:textSize="14sp" />
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
 
             <Button
                 android:id="@+id/btnSubmitIdea"
@@ -258,7 +248,7 @@
                 android:layout_height="56dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="32dp"
-                android:backgroundTint="@color/primaryRed"
+                android:backgroundTint="#C1272D"
                 android:text="Submit Ideas"
                 android:textAllCaps="false"
                 android:textSize="18sp"

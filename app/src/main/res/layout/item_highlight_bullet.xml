@@ -10,7 +10,9 @@
     <ImageView
         android:layout_width="18dp"
         android:layout_height="18dp"
-        android:src="@drawable/ic_check_circle" />
+        android:src="@drawable/ic_check_circle"
+        app:tint="#C1272D"
+        android:contentDescription="Check" />
 
     <TextView
         android:id="@+id/tvHighlightText"

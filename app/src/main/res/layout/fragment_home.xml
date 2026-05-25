@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F9FB"
-    tools:context=".HomeFragment">
+    tools:context=".view.HomeFragment">
 
     <!-- Top Bar -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,29 +15,25 @@
         android:padding="16dp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cvLogo"
+        <!-- Properly displayed RKU Logo without round background -->
+        <ImageView
+            android:id="@+id/ivLogo"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/rkulogo"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/rkulogo" />
-        </com.google.android.material.card.MaterialCardView>
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="RKU Logo" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/cvLogo"
-            app:layout_constraintStart_toEndOf="@id/cvLogo"
-            app:layout_constraintTop_toTopOf="@id/cvLogo">
+            app:layout_constraintBottom_toBottomOf="@id/ivLogo"
+            app:layout_constraintStart_toEndOf="@id/ivLogo"
+            app:layout_constraintTop_toTopOf="@id/ivLogo">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,14 +52,14 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <com.google.android.material.card.MaterialCardView
+        <FrameLayout
             android:id="@+id/btnSearch"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="12dp"
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="2dp"
+            android:background="@drawable/profile_circle"
+            android:backgroundTint="@android:color/white"
+            android:elevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnNotifications"
             app:layout_constraintTop_toTopOf="parent">
@@ -72,37 +68,35 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/search"
-                app:tint="#000000" />
-        </com.google.android.material.card.MaterialCardView>
+                app:tint="#000000"
+                android:contentDescription="Search" />
+        </FrameLayout>
 
-        <com.google.android.material.card.MaterialCardView
+        <FrameLayout
             android:id="@+id/btnNotifications"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="2dp"
+            android:background="@drawable/profile_circle"
+            android:backgroundTint="@android:color/white"
+            android:elevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_notification"
-                    app:tint="#000000" />
-                <View
-                    android:id="@+id/viewNotificationBadge"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_gravity="top|end"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/bg_circle_red" />
-            </FrameLayout>
-        </com.google.android.material.card.MaterialCardView>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_notification"
+                app:tint="#000000"
+                android:contentDescription="Notifications" />
+            <View
+                android:id="@+id/viewNotificationBadge"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_circle_red" />
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
@@ -135,11 +129,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_category_item"
+                        android:background="@drawable/bg_category_selected"
                         android:paddingHorizontal="20dp"
                         android:paddingVertical="10dp"
                         android:text="Latest"
-                        android:textColor="#000000"
+                        android:textColor="@android:color/white"
                         android:textStyle="bold" />
 
                     <TextView
@@ -177,17 +171,6 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
-            <!-- Scroll Indicator Style -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingVertical="8dp">
-                <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/back_arrow" app:tint="#9CA3AF" />
-                <View android:layout_width="240dp" android:layout_height="8dp" android:layout_marginHorizontal="8dp" android:background="#9CA3AF" />
-                <ImageView android:layout_width="16dp" android:layout_height="16dp" android:rotation="180" android:src="@drawable/back_arrow" app:tint="#9CA3AF" />
-            </LinearLayout>
-
             <!-- Upcoming Events Section -->
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -215,93 +198,88 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <!-- Featured Event Card -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- Featured Event Container -->
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardFeaturedEvent"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="6dp"
-                app:strokeWidth="0dp">
+                android:background="@drawable/bg_featured_event"
+                android:elevation="6dp"
+                android:padding="24dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_featured_event"
-                    android:padding="24dp">
+                <TextView
+                    android:id="@+id/tvBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_white_rounded_card"
+                    android:backgroundTint="#4DFFFFFF"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:text="ONGOING TECH-FEST"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvFeaturedEventTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Annual Convocation"
+                    android:textColor="@android:color/white"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvBadge" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvFeaturedEventTitle">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/event"
+                        app:tint="@android:color/white"
+                        android:contentDescription="Date" />
 
                     <TextView
-                        android:id="@+id/tvBadge"
+                        android:id="@+id/tvFeaturedEventDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_white_rounded_card"
-                        android:backgroundTint="#4DFFFFFF"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="4dp"
-                        android:text="ONGOING TECH-FEST"
+                        android:layout_marginStart="6dp"
+                        android:text="24 Oct"
                         android:textColor="@android:color/white"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/home"
+                        app:tint="@android:color/white"
+                        android:contentDescription="Location" />
 
                     <TextView
-                        android:id="@+id/tvFeaturedEventTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Annual Convocation"
-                        android:textColor="@android:color/white"
-                        android:textSize="28sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvBadge" />
-
-                    <LinearLayout
+                        android:id="@+id/tvFeaturedEventLocation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvFeaturedEventTitle">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/event"
-                            app:tint="@android:color/white" />
-
-                        <TextView
-                            android:id="@+id/tvFeaturedEventDate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:text="24 Oct"
-                            android:textColor="@android:color/white"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginStart="16dp"
-                            android:src="@drawable/home"
-                            app:tint="@android:color/white" />
-
-                        <TextView
-                            android:id="@+id/tvFeaturedEventLocation"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:text="RKU Dome"
-                            android:textColor="@android:color/white"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+                        android:layout_marginStart="6dp"
+                        android:text="RKU Dome"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- New Skills Section -->
             <TextView
@@ -314,43 +292,38 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <!-- Search Bar for Home -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- Search Bar Container -->
+            <LinearLayout
                 android:id="@+id/cvHomeSearch"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
                 android:visibility="gone"
-                app:cardBackgroundColor="@android:color/white"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/search"
+                    app:tint="#6B7280"
+                    android:contentDescription="Search Icon" />
+
+                <EditText
+                    android:id="@+id/etHomeSearch"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="16dp">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/search"
-                        app:tint="#6B7280" />
-
-                    <EditText
-                        android:id="@+id/etHomeSearch"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="12dp"
-                        android:background="@android:color/transparent"
-                        android:hint="Search skills...."
-                        android:inputType="text"
-                        android:textColor="#000000"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                    android:layout_marginStart="12dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Search skills...."
+                    android:inputType="text"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvLatestSkills"
@@ -360,8 +333,8 @@
                 android:nestedScrollingEnabled="false" />
 
             <!-- Hidden placeholders to keep code compatible -->
-            <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvLatestEvents" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
-            <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvFeaturedStartups" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvLatestEvents" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+            <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvFeaturedStartups" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
 
         </LinearLayout>
     </ScrollView>

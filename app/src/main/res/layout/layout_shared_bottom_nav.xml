@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/sharedBottomNavCard"
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:layout_gravity="bottom"
-    app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="0dp"
-    app:cardElevation="16dp"
-    app:strokeWidth="0dp">
+    android:background="@android:color/white"
+    android:elevation="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +29,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/home"
-                app:tint="@color/gray_text" />
+                app:tint="@color/gray_text"
+                android:contentDescription="Home" />
             <TextView
                 android:id="@+id/tvNavHome"
                 android:layout_width="wrap_content"
@@ -58,15 +57,15 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/skills"
-                app:tint="@color/gray_text" />
+                app:tint="@color/gray_text"
+                android:contentDescription="Skills" />
             <TextView
                 android:id="@+id/tvNavSkills"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Skills"
                 android:textColor="@color/gray_text"
-                android:textSize="10sp"
-                android:textStyle="bold" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <!-- StartUp -->
@@ -85,15 +84,15 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/rocket_launch"
-                app:tint="@color/gray_text" />
+                app:tint="@color/gray_text"
+                android:contentDescription="StartUp" />
             <TextView
                 android:id="@+id/tvNavStartup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="StartUp"
                 android:textColor="@color/gray_text"
-                android:textSize="10sp"
-                android:textStyle="bold" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <!-- Events -->
@@ -112,15 +111,15 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/event"
-                app:tint="@color/gray_text" />
+                app:tint="@color/gray_text"
+                android:contentDescription="Events" />
             <TextView
                 android:id="@+id/tvNavEvents"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Events"
                 android:textColor="@color/gray_text"
-                android:textSize="10sp"
-                android:textStyle="bold" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <!-- Profile -->
@@ -139,7 +138,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/profile_circle"
-                app:tint="@color/gray_text" />
+                app:tint="@color/gray_text"
+                android:contentDescription="Profile" />
             <TextView
                 android:id="@+id/tvNavProfile"
                 android:layout_width="wrap_content"
@@ -151,4 +151,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -79,13 +79,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.card.MaterialCardView
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:cardCornerRadius="24dp"
-                    app:cardElevation="0dp"
-                    app:strokeColor="#F3F4F6"
-                    app:strokeWidth="2dp">
+                    android:background="@drawable/profile_circle"
+                    android:backgroundTint="#F3F4F6"
+                    android:padding="2dp">
 
                     <ImageView
                         android:id="@+id/ivEditProfileImage"
@@ -96,16 +95,16 @@
                         android:src="@drawable/profile_circle"
                         app:tint="#D1D5DB"
                         android:contentDescription="Photo" />
-                </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
 
-                <com.google.android.material.card.MaterialCardView
+                <FrameLayout
                     android:id="@+id/btnChangePhoto"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="bottom|end"
-                    app:cardBackgroundColor="#C1272D"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="2dp">
+                    android:background="@drawable/profile_circle"
+                    android:backgroundTint="#C1272D"
+                    android:elevation="2dp">
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -114,7 +113,7 @@
                         android:src="@drawable/ic_camera"
                         app:tint="@android:color/white"
                         android:contentDescription="Edit" />
-                </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
             </FrameLayout>
 
             <TextView
@@ -265,14 +264,13 @@
                     android:paddingHorizontal="16dp"
                     android:textSize="14sp" />
 
-                <com.google.android.material.card.MaterialCardView
+                <FrameLayout
                     android:id="@+id/btnAddSkill"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="8dp"
-                    app:cardBackgroundColor="#F1F5F9"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp">
+                    android:background="@drawable/bg_white_rounded_card"
+                    android:backgroundTint="#F1F5F9">
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -281,7 +279,7 @@
                         android:src="@drawable/add"
                         app:tint="#1E293B"
                         android:contentDescription="Add" />
-                </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
             </LinearLayout>
 
             <TextView

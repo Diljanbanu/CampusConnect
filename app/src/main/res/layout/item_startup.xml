@@ -1,93 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp"
-    app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
-    app:strokeWidth="0dp">
+    android:layout_marginVertical="10dp"
+    android:background="@drawable/bg_white_rounded_card"
+    android:elevation="2dp"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="EcoDrive"
+        android:textColor="#000000"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/tvStatusBadge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvStatusBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_badge_live"
+        android:backgroundTint="#F0FDF4"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="4dp"
+        android:text="ACTIVE"
+        android:textColor="#16A34A"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvTitle" />
+
+    <TextView
+        android:id="@+id/tvFounderName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Founded by Jay Patel"
+        android:textColor="#9CA3AF"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <TextView
+        android:id="@+id/labelProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Progress"
+        android:textColor="#1F2937"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvFounderName" />
+
+    <TextView
+        android:id="@+id/tvProgressPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="65%"
+        android:textColor="#1F2937"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/labelProgress"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/pbProjectProgress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_marginTop="8dp"
+        android:progress="65"
+        android:progressTint="#C1272D"
+        app:layout_constraintTop_toBottomOf="@id/labelProgress" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/llTeamContainer"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pbProjectProgress">
 
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Startup Title"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+        <!-- Dynamic avatars using vector circles instead of CardView -->
+        <FrameLayout
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/profile_circle"
+            android:backgroundTint="#F1F5F9">
+            <TextView android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:text="JS" android:textSize="10sp" />
+        </FrameLayout>
 
-        <TextView
-            android:id="@+id/tvCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Category"
-            android:textColor="#FF0000"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+        <FrameLayout
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="-8dp"
+            android:background="@drawable/profile_circle"
+            android:backgroundTint="#F1F5F9">
+            <TextView android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:text="AP" android:textSize="10sp" />
+        </FrameLayout>
 
-        <TextView
-            android:id="@+id/tvStudentName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="By: Student Name"
-            android:textColor="#757575"
-            android:textSize="14sp" />
+        <FrameLayout
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="-8dp"
+            android:background="@drawable/profile_circle"
+            android:backgroundTint="#FEE2E2">
+            <TextView android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:text="+2" android:textColor="#C1272D" android:textStyle="bold" android:textSize="10sp" />
+        </FrameLayout>
 
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:text="Description goes here..."
-            android:textColor="#1A1C1E"
-            android:textSize="14sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnJoinTeam"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:backgroundTint="#FF0000"
-                android:padding="0dp"
-                android:text="Join Team"
-                android:textAllCaps="false"
-                android:textSize="12sp"
-                app:cornerRadius="20dp" />
-
-            <Button
-                android:id="@+id/btnView"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:padding="0dp"
-                android:text="View"
-                android:textAllCaps="false"
-                android:textColor="#757575"
-                android:textSize="12sp"
-                app:cornerRadius="20dp"
-                app:strokeColor="#D1D5DB" />
-        </LinearLayout>
     </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnJoinTeam"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:backgroundTint="#1F2937"
+        android:paddingHorizontal="24dp"
+        android:text="Join Team"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:cornerRadius="22dp"
+        app:layout_constraintBottom_toBottomOf="@id/llTeamContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/llTeamContainer" />
+
+    <!-- Hidden elements for compatibility -->
+    <TextView android:id="@+id/tvDescription" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <TextView android:id="@+id/tvStudentName" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <TextView android:id="@+id/tvCategory" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <Button android:id="@+id/btnView" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,13 +16,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.card.MaterialCardView
+        <FrameLayout
             android:id="@+id/cvAvatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardBackgroundColor="#FFEAEA"
-            app:cardCornerRadius="28dp"
-            app:cardElevation="0dp">
+            android:background="@drawable/profile_circle"
+            android:backgroundTint="#FFEAEA">
 
             <TextView
                 android:id="@+id/tvUserInitial"
@@ -41,15 +40,19 @@
                 android:layout_gravity="center"
                 android:src="@drawable/menu"
                 android:visibility="gone"
-                app:tint="#3B82F6" />
+                app:tint="#3B82F6"
+                android:contentDescription="Group" />
 
             <ImageView
                 android:id="@+id/ivUserImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:visibility="gone" />
-        </com.google.android.material.card.MaterialCardView>
+                android:visibility="gone"
+                android:background="@drawable/profile_circle"
+                android:clipToOutline="true"
+                android:contentDescription="User" />
+        </FrameLayout>
 
         <View
             android:id="@+id/viewOnlineStatus"
