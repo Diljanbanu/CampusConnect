@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PERSONAL DETAILS"
-                android:textColor="#C1272D"
+                android:textColor="#2C3E50"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -199,7 +199,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="ABOUT &amp; SKILLS"
-                android:textColor="#C1272D"
+                android:textColor="#2C3E50"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -246,7 +246,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="EXPERIENCE &amp; PROJECTS"
-                android:textColor="#C1272D"
+                android:textColor="#2C3E50"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -372,7 +372,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="ONLINE PRESENCE"
-                android:textColor="#C1272D"
+                android:textColor="#2C3E50"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -417,6 +417,7 @@
             android:id="@+id/btnGeneratePDF"
             style="@style/Widget.CampusConnect.Button.Primary"
             android:layout_width="match_parent"
+            android:backgroundTint="#2C3E50"
             android:text="Generate Professional PDF"
             app:icon="@drawable/ic_resume"
             app:iconGravity="textStart"

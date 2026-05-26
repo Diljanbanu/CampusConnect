@@ -19,14 +19,16 @@ class MentorshipListAdapter(private val mentorshipList: List<MentorshipRecord>) 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val record = mentorshipList[position]
-        holder.binding.tvStudentInitial.text = record.studentName?.take(2)?.uppercase() ?: "S"
-        holder.binding.tvStudentName.text = record.studentName
-        holder.binding.tvTaughtSkill.text = "Taught: ${record.skillName}"
+        val b = holder.binding
+
+        b.tvStudentInitial.text = record.studentName?.take(2)?.uppercase() ?: "S"
+        b.tvStudentName.text = record.studentName
+        b.tvTaughtSkill.text = "Mastered: ${record.skillName}"
         
-        val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
-        holder.binding.tvDate.text = record.date?.let { sdf.format(Date(it)) } ?: ""
+        val sdf = SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault())
+        b.tvDate.text = record.date?.let { sdf.format(Date(it)) } ?: ""
         
-        holder.binding.tvRating.text = "★ ${String.format("%.1f", record.rating)} Rating"
+        b.tvRating.text = String.format("%.1f", record.rating)
     }
 
     override fun getItemCount(): Int = mentorshipList.size

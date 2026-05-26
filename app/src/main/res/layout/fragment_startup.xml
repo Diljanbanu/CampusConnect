@@ -360,12 +360,38 @@
                 android:layout_marginTop="8dp"
                 android:nestedScrollingEnabled="false" />
 
-            <!-- Search Field (Hidden) -->
-            <EditText
-                android:id="@+id/etSearchStartups"
+            <!-- Search Bar Container -->
+            <LinearLayout
+                android:id="@+id/cvSearch"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:background="@drawable/bg_white_rounded_card"
+                android:elevation="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/search"
+                    app:tint="#6B7280"
+                    android:contentDescription="Search Icon" />
+
+                <EditText
+                    android:id="@+id/etSearchStartups"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="12dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Search startups...."
+                    android:inputType="text"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

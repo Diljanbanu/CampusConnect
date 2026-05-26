@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,12 +54,17 @@ class MySkillsFragment : Fragment() {
         }
         
         binding.btnAddSkill.setOnClickListener {
-            // Future implementation for adding a skill from here
+            // Implementation for adding a skill
+            Toast.makeText(context, "Feature coming soon", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun setupRecyclerViews() {
-        skillsAdapter = MySkillCardAdapter(mySkills)
+        skillsAdapter = MySkillCardAdapter(
+            mySkills,
+            onEditClick = { skill -> /* Edit logic */ },
+            onDeleteClick = { skill -> deleteSkill(skill) }
+        )
         binding.rvMySkills.layoutManager = LinearLayoutManager(requireContext())
         binding.rvMySkills.adapter = skillsAdapter
 
@@ -75,23 +82,41 @@ class MySkillsFragment : Fragment() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (_binding == null) return
                     mySkills.clear()
-                    var highestRating = 0f
-                    var highestRatedSkillName = "None"
+                    var topSkillName = "None"
+                    var maxRating = 0f
+                    var recentlyAdded = "None"
+                    var mostViewed = "None"
+                    var maxViews = -1
                     
+                    val list = mutableListOf<Skill>()
                     for (ds in snapshot.children) {
                         val skill = ds.getValue(Skill::class.java)
                         if (skill != null) {
-                            mySkills.add(skill)
-                            if (skill.rating > highestRating) {
-                                highestRating = skill.rating
-                                highestRatedSkillName = skill.skillName ?: "None"
-                            }
+                            list.add(skill)
                         }
                     }
                     
-                    if (highestRating > 0) {
-                        binding.tvHighestRatedSkill.text = "$highestRatedSkillName (${String.format("%.1f", highestRating)}★)"
+                    // Sort by timestamp for recently added
+                    list.sortByDescending { it.timestamp ?: 0L }
+                    if (list.isNotEmpty()) {
+                        recentlyAdded = list.first().skillName ?: "None"
                     }
+                    
+                    for (skill in list) {
+                        mySkills.add(skill)
+                        if (skill.rating > maxRating) {
+                            maxRating = skill.rating
+                            topSkillName = skill.skillName ?: "None"
+                        }
+                        if (skill.views > maxViews) {
+                            maxViews = skill.views
+                            mostViewed = skill.skillName ?: "None"
+                        }
+                    }
+                    
+                    binding.tvTopSkill.text = topSkillName
+                    binding.tvRecentlyAdded.text = recentlyAdded
+                    binding.tvMostViewed.text = mostViewed
                     
                     skillsAdapter.notifyDataSetChanged()
                 }
@@ -108,11 +133,42 @@ class MySkillsFragment : Fragment() {
                         ds.getValue(MentorshipRecord::class.java)?.let { mentoringList.add(it) }
                     }
                     
-                    binding.tvTotalMentored.text = "${mentoringList.size}+"
+                    binding.tvTotalEngaged.text = mentoringList.size.toString()
                     mentoringAdapter.notifyDataSetChanged()
                 }
                 override fun onCancelled(error: DatabaseError) {}
             })
+            
+        // 3. Load Interaction Chats Count
+        database.reference.child("Chats").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (_binding == null) return
+                var chatCount = 0
+                for (roomSnapshot in snapshot.children) {
+                    if (roomSnapshot.key?.contains(uid) == true) {
+                        chatCount += roomSnapshot.childrenCount.toInt()
+                    }
+                }
+                binding.tvInteractions.text = "$chatCount Chats"
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
+    private fun deleteSkill(skill: Skill) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Delete Skill")
+            .setMessage("Are you sure you want to remove '${skill.skillName}'?")
+            .setPositiveButton("Delete") { _, _ ->
+                skill.id?.let { id ->
+                    database.reference.child("Skills").child(id).removeValue()
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "Skill deleted", Toast.LENGTH_SHORT).show()
+                        }
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     override fun onDestroyView() {

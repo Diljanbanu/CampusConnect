@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white_rounded_card"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvPollQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Poll Question"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/llOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/tvPollQuestion">
+
+        <RelativeLayout
+            android:id="@+id/btnOption1"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_white_rounded_card"
+            android:backgroundTint="#F8FAFC"
+            android:paddingHorizontal="16dp">
+            <TextView android:id="@+id/tvOption1Title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:text="Option 1" android:textColor="#1F2937" android:textSize="13sp" />
+            <TextView android:id="@+id/tvOption1Percent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:text="0%" android:textColor="#94A3B8" android:textSize="13sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btnOption2"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_white_rounded_card"
+            android:backgroundTint="#F8FAFC"
+            android:paddingHorizontal="16dp">
+            <TextView android:id="@+id/tvOption2Title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:text="Option 2" android:textColor="#1F2937" android:textSize="13sp" />
+            <TextView android:id="@+id/tvOption2Percent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:text="0%" android:textColor="#94A3B8" android:textSize="13sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="My Skills"
+            android:text="My Skills &amp; Mentoring"
             android:textColor="#1F2937"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -39,19 +39,20 @@
 
         <FrameLayout
             android:id="@+id/btnAddSkill"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:background="@drawable/profile_circle"
-            android:backgroundTint="#F5F3FF"
+            android:backgroundTint="#8B5CF6"
+            android:elevation="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/add"
-                app:tint="#8B5CF6"
+                app:tint="@android:color/white"
                 android:contentDescription="Add" />
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -68,107 +69,163 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Mentorship Stats Card -->
-            <FrameLayout
+            <!-- Stats Row 1 -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_white_rounded_card"
-                android:elevation="4dp"
-                android:padding="0dp">
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_received_message"
-                    android:backgroundTint="#8B5CF6"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_white_rounded_card"
+                    android:backgroundTint="#FDF4FF"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="20dp">
-
+                    android:padding="12dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MENTORSHIP STATS"
-                        android:textColor="#E5E7EB"
+                        android:text="Total Engaged"
+                        android:textColor="#A855F7"
                         android:textSize="11sp"
-                        android:textStyle="bold"
-                        android:letterSpacing="0.1" />
-
+                        android:textStyle="bold" />
                     <TextView
+                        android:id="@+id/tvTotalEngaged"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Sikhvadela Students"
-                        android:textColor="@android:color/white"
+                        android:text="0"
+                        android:textColor="#000000"
                         android:textSize="22sp"
                         android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="20dp"
-                        android:background="#4DFFFFFF" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-                            <TextView
-                                android:id="@+id/tvTotalMentored"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0+"
-                                android:textColor="@android:color/white"
-                                android:textSize="24sp"
-                                android:textStyle="bold" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="STUDENTS MENTORED"
-                                android:textColor="#E5E7EB"
-                                android:textSize="9sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:orientation="vertical">
-                            <TextView
-                                android:id="@+id/tvHighestRatedSkill"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="None"
-                                android:textColor="@android:color/white"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="HIGHEST RATED SKILL"
-                                android:textColor="#E5E7EB"
-                                android:textSize="9sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
+                        android:text="Students"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
-            </FrameLayout>
 
-            <!-- Skills List Header -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1.2"
+                    android:layout_marginHorizontal="12dp"
+                    android:background="@drawable/bg_white_rounded_card"
+                    android:backgroundTint="#FEFCE8"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Top Skill"
+                        android:textColor="#CA8A04"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvTopSkill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="None"
+                        android:textColor="#000000"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_white_rounded_card"
+                    android:backgroundTint="#F0FDFA"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Interactions"
+                        android:textColor="#0D9488"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvInteractions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="0 Chats"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Secondary Stats -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:paddingHorizontal="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="RECENTLY ADDED"
+                        android:textColor="#94A3B8"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvRecentlyAdded"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="None"
+                        android:textColor="#1F2937"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="end"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MOST VIEWED SKILL"
+                        android:textColor="#94A3B8"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvMostViewed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="None"
+                        android:textColor="#8B5CF6"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- Skills List -->
             <TextView
-                android:id="@+id/tvSkillsHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="USER'S SKILLS &amp; PEER RATINGS"
+                android:text="MY ENDORSED SKILLS"
                 android:textColor="#94A3B8"
                 android:textSize="11sp"
                 android:textStyle="bold"
@@ -178,16 +235,16 @@
                 android:id="@+id/rvMySkills"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/item_my_skill_card" />
 
-            <!-- Mentoring List Header -->
+            <!-- Mentoring List -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="SIKHVADELA STUDENTS (MENTORING LIST)"
+                android:text="STUDENTS TAUGHT (MENTORSHIP LOG)"
                 android:textColor="#94A3B8"
                 android:textSize="11sp"
                 android:textStyle="bold"
@@ -197,7 +254,7 @@
                 android:id="@+id/rvMentoringList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="24dp"
                 android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/item_mentorship_list" />

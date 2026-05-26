@@ -3,32 +3,100 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
+    android:layout_marginBottom="16dp"
     android:background="@drawable/bg_white_rounded_card"
     android:elevation="0dp"
-    android:padding="16dp">
+    android:padding="20dp">
+
+    <LinearLayout
+        android:id="@+id/llBadges"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_received_message"
+            android:backgroundTint="#F5F3FF"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:text="Software"
+            android:textColor="#8B5CF6"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/llVerified"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_white_rounded_card"
+            android:backgroundTint="#EFF6FF"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp">
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/ic_check_circle"
+                app:tint="#3B82F6" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="RKU Verified"
+                android:textColor="#3B82F6"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tvLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EXPERT"
+            android:textColor="#9CA3AF"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvSkillName"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Skill Name"
+        android:layout_marginTop="16dp"
+        android:text="React.js Stack"
         android:textColor="#000000"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/tvStudentCount"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/llBadges" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:lineSpacingExtra="2dp"
+        android:text="Building modular interfaces, React Context, and state integration architectures."
+        android:textColor="#6B7280"
+        android:textSize="13sp"
+        app:layout_constraintTop_toBottomOf="@id/tvSkillName" />
 
     <LinearLayout
-        android:id="@+id/llRating"
-        android:layout_width="wrap_content"
+        android:id="@+id/llRatingRow"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="20dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSkillName">
+        app:layout_constraintTop_toBottomOf="@id/tvDescription">
 
         <RatingBar
             android:id="@+id/ratingBar"
@@ -38,38 +106,116 @@
             android:isIndicator="true"
             android:numStars="5"
             android:progressTint="#FBBF24"
-            android:rating="4.5"
-            android:secondaryProgressTint="#FBBF24" />
+            android:rating="5" />
 
-        <TextView
-            android:id="@+id/tvRatingNum"
+        <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="(4.9★ Rating)"
-            android:textColor="#6B7280"
-            android:textSize="12sp" />
+            android:gravity="end"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvReviewCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12 Students"
+                android:textColor="#8B5CF6"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Taught &amp; Guided"
+                android:textColor="#94A3B8"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tvStudentCount"
+        android:id="@+id/labelPopularity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0 Students"
-        android:textColor="#C1272D"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SIKHVADELI CHHE"
+        android:layout_marginTop="20dp"
+        android:text="Skill Peer Popularity"
         android:textColor="#94A3B8"
         android:textSize="10sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvStudentCount" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llRatingRow" />
+
+    <TextView
+        android:id="@+id/tvPopularityPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="94%"
+        android:textColor="#94A3B8"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/labelPopularity"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/pbPopularity"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_marginTop="8dp"
+        android:progress="94"
+        android:progressTint="#8B5CF6"
+        app:layout_constraintTop_toBottomOf="@id/labelPopularity" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/pbPopularity">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEdit"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:backgroundTint="#F8F9FA"
+            android:text="Edit"
+            android:textAllCaps="false"
+            android:textColor="#1F2937"
+            android:textStyle="bold"
+            app:cornerRadius="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDelete"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1.2"
+            android:backgroundTint="#FFF1F1"
+            android:text="Delete"
+            android:textAllCaps="false"
+            android:textColor="#EF4444"
+            android:textStyle="bold"
+            app:cornerRadius="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCommunity"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1.8"
+            android:backgroundTint="#F1F5F9"
+            android:text="Joined Community"
+            android:textAllCaps="false"
+            android:textColor="#475569"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp" />
+    </LinearLayout>
+
+    <TextView android:id="@+id/tvRatingNum" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <TextView android:id="@+id/tvStudentCount" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
